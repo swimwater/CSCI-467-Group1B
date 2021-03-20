@@ -5,6 +5,7 @@
 # Written by Ben Ford
 
 drop table if exists Associate;
+drop table if exists Quote_Descript;
 drop table if exists Quote;
 
 create table Associate(
@@ -30,3 +31,4 @@ create table Quote_Descript(
 
     foreign key(Quote_Id) references Quote(Quote_Id)
 );
+
