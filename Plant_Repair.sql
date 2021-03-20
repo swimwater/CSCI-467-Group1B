@@ -19,6 +19,7 @@ create table Associate(
 create table Quote(
     Quote_Id  INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Cust_Mail VARCHAR(50)    NOT NULL,
+    SNote     VARCHAR(1000)
 );
 
 create table Quote_Descript(
@@ -26,7 +27,6 @@ create table Quote_Descript(
     Quote_Id   INT           NOT NULL,
     Price      DECIMAL(15,2) NOT NULL,
     Descript   VARCHAR(1000) NOT NULL,
-    SNote      VARCHAR(1000) NOT NULL,
 
     foreign key(Quote_Id) references Quote(Quote_Id)
 );
