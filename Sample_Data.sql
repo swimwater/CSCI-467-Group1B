@@ -55,3 +55,6 @@ insert into Quote_Descript (Quote_Id, Price, Descript)
   values (6, 11.59, "Bdubs is so good after working out");
 insert into Quote_Descript (Quote_Id, Price, Descript)
   values (6, 8.59, "It's a little expensive though");
+
+insert into Quote_Descript (Quote_Id, Price, Descript)
+  values (7, 12.59, "This is unfinished");
