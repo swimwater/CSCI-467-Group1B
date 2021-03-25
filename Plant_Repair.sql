@@ -19,8 +19,12 @@ create table Associate(
 
 create table Quote(
     Quote_Id  INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    User_Id   INT            NOT NULL,
     Cust_Mail VARCHAR(50)    NOT NULL,
-    SNote     VARCHAR(1000)
+    SNote     VARCHAR(1000),
+    Status    CHAR(11)       NOT NULL DEFAULT "Unfinalized",
+
+    foreign key(User_Id) references Associate(User_Id)
 );
 
 create table Quote_Descript(
@@ -31,4 +35,3 @@ create table Quote_Descript(
 
     foreign key(Quote_Id) references Quote(Quote_Id)
 );
-

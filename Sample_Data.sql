@@ -9,18 +9,20 @@ insert into Associate (Name, Password, Accu_Com, Address, Admin)
 insert into Associate (Name, Password, Accu_Com, Address, Admin)
   values ('Normal', 'Test321', 50.00, '4321 N. Normal Rd Dekalb, IL 60115', 0);
 
-insert into Quote (Cust_Mail, SNote)
-  values ('420swagmaster@hotmail.co.uk', "This person's email got me a free water bottle");
-insert into Quote (Cust_Mail, SNote)
-  values ('customerEmail@email.com', "Ryan's secret notes for his first quote");
-insert into Quote (Cust_Mail, SNote)
-  values ('mcdonalds@email.com', "McDonalds is aiiight");
-insert into Quote (Cust_Mail, SNote)
-  values ('burgerKing@email.com', "Burger king has decent burgers");
-insert into Quote (Cust_Mail, SNote)
-  values ('wendys@email.com', "I hardly go to wendys. Not sure why");
-insert into Quote (Cust_Mail, SNote)
-  values ('buffaloWildWings@email.com', "Mmmm smoky adobo");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (2, '420swagmaster@hotmail.co.uk', "This person's email got me a free water bottle", "Finalized");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (1, 'customerEmail@email.com', "Ryan's secret notes for his first quote", "Sanctioned");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (2, 'mcdonalds@email.com', "McDonalds is aiiight", "Ordered");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (2, 'burgerKing@email.com', "Burger king has decent burgers", "Finalized");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (2, 'wendys@email.com', "I hardly go to wendys. Not sure why", "Ordered");
+insert into Quote (User_Id, Cust_Mail, SNote, Status)
+  values (1, 'buffaloWildWings@email.com', "Mmmm smoky adobo", "Sanctioned");
+insert into Quote (User_Id, Cust_Mail, SNote)
+  values (1, 'testUnfinalEmail@email.com', "Test for displaying unfinalized quotes");
 
 insert into Quote_Descript (Quote_Id, Price, Descript)
   values (1, 0.00, "The bottle was free");
@@ -53,4 +55,3 @@ insert into Quote_Descript (Quote_Id, Price, Descript)
   values (6, 11.59, "Bdubs is so good after working out");
 insert into Quote_Descript (Quote_Id, Price, Descript)
   values (6, 8.59, "It's a little expensive though");
-
