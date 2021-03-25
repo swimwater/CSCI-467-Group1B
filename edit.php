@@ -77,25 +77,25 @@
           <tr align:left;>
             <th>Name:</th>
             <td>
-                <input type="text" name="Name" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Name']."\"";?>/>
+                <input type="text" name="Name" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Name']."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Password:</th>
             <td>
-              <input type="text" name="Password" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Password']."\"";?>/>
+              <input type="text" name="Password" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Password']."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Accumulated Commission:</th>
             <td>
-              <input type="number" name="Accu_Com" placeholder="0.00" min="0" max="9999999999999.99" value=<?php echo "\"".$info['Accu_Com']."\"";?>/>
+              <input type="number" name="Accu_Com" placeholder="0.00" min="0" max="9999999999999.99" value=<?php echo "\"".$info['Accu_Com']."\"";?> required step="0.01" title="Currency" pattern="^\d+(?:\.\d{1,2})?$"/>
             </td>
           </tr>
           <tr>
             <th>Address:</th>
             <td>
-              <input type="text" name="Address" placeholder="Maximum of 100 characters" size="100" maxlength="100" value=<?php echo "\"".$info['Address']."\"";?>/>
+              <input type="text" name="Address" placeholder="Maximum of 100 characters" size="100" maxlength="100" value=<?php echo "\"".$info['Address']."\"";?> required/>
             </td>
           </tr>
           <tr>
