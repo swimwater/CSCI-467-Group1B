@@ -4,9 +4,9 @@
 #
 # Written by Ben Ford
 
-drop table if exists Associate;
 drop table if exists Quote_Descript;
 drop table if exists Quote;
+drop table if exists Associate;
 
 create table Associate(
     User_Id  INT             NOT NULL PRIMARY KEY AUTO_INCREMENT,
