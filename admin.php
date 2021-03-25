@@ -1,7 +1,7 @@
 <?php
     require_once("secrets.php");
     session_start();
-   
+
 
 
     if(isset($_POST["Login"]))
@@ -15,7 +15,7 @@
             $id = $_POST['user_id'] ;
             $pswd = $_POST['password'] ;
 
-            $sql = ("SELECT * FROM ASSOCIATE WHERE ASSOCIATE.USER_ID = $id AND ASSOCIATE.PASSWORD = '$pswd' AND ISADMIN = 1 ;") ;
+            $sql = ("SELECT * FROM Associate WHERE Associate.User_Id = $id AND Associate.Password = '$pswd' AND Admin = 1 ;") ;
             $login_query = $pdo->query($sql);
 
             $rows = $login_query->fetch(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@
             }
             else
             {
-                $message = '<label>Username OR Password is incorrect</label>';                
+                $message = '<label>Username OR Password is incorrect</label>';
             }
         }
     }
@@ -47,8 +47,8 @@
 
 </head>
 <body>
-    <div id="box"> 
-    
+    <div id="box">
+
         <form method="post">
             <div style ="font-size: 20px; margin: 10px;">Login</div>
             <p>ASSOCIATE ID: </p>
@@ -56,12 +56,12 @@
             <p>PASSWORD: </p>
             <input id="text" type="password" name="password"><br><br>
 
-            <input id="button" type="submit" name="Login" value="Login">  
-        
+            <input id="button" type="submit" name="Login" value="Login">
+
         </form>
 
-    
-    
+
+
     </div>
 
 </body>
