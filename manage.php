@@ -32,6 +32,12 @@
     border: 1px solid black;
     padding: 3px;
   }
+  form {
+    display: inline;
+  }
+  #button{
+    width: 100px;
+  }
 </style>
 </head>
 <body>
@@ -82,7 +88,7 @@
       <th>Accumulated Commission</th>
       <th>Address</th>
       <th>Position</th>
-      <th>Edit Associate Info</th>
+      <th>Manage Associate Info</th>
     </tr>
   <?php while ($info = $result->fetch()):?>
     <tr>
@@ -98,10 +104,35 @@
             <input type="hidden" name="Edit" value = "Edit"/>
             <input type="submit" value="Edit"/>
         </form>
+        <form id="delete" action=processChange.php method="POST">
+            <input type="hidden" name="User_Id" value = <?php echo "\"".$info['User_Id']."\"";?>/>
+            <input type="hidden" name="Delete" value = "Delete"/>
+            <input type="submit" value="Delete" onClick='return confirmSubmit()'/>
+        </form>
       </td>
     </tr>
   <?php endwhile;?>
+  <tr>
+    <th>Add New Associate:</th>
+    <td colspan = "6" align = "right">
+      <form id="add" action=edit.php method="POST">
+          <input type="hidden" name="Add" value = "Add"/>
+          <input type="submit" value="Add" id = "button"/>
+      </form>
+    </td>
+  </tr>
   </table>
 </div>
 
 </html>
+
+<script LANGUAGE="JavaScript">
+function confirmSubmit()
+{
+var agree=confirm("Are you sure you want to continue? This action is irreverable");
+if (agree)
+ return true ;
+else
+ return false ;
+}
+</script>

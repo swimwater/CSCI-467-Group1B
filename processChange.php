@@ -7,14 +7,28 @@
     {
       $changeName = "update Associate set Name = '".$_POST['Name']."' where User_Id = ".$_POST['User_Id'].";";
       $changePass = "update Associate set Password = '".$_POST['Password']."' where User_Id = ".$_POST['User_Id'].";";
-      $changeCom = "update Associate set Accu_Com = '".$_POST['Accu_Com']."' where User_Id = ".$_POST['User_Id'].";";
+      $changeCom = "update Associate set Accu_Com = ".$_POST['Accu_Com']." where User_Id = ".$_POST['User_Id'].";";
       $changeAdd = "update Associate set Address = '".$_POST['Address']."' where User_Id = ".$_POST['User_Id'].";";
-      $changeAdmin = "update Associate set Admin = '".$_POST['Admin']."' where User_Id = ".$_POST['User_Id'].";";
+      $changeAdmin = "update Associate set Admin = ".$_POST['Admin']." where User_Id = ".$_POST['User_Id'].";";
 
       $pdo->query($changeName);
       $pdo->query($changePass);
       $pdo->query($changeCom);
       $pdo->query($changeAdd);
       $pdo->query($changeAdmin);
+    }
+
+    if (isset($_POST['Add']))
+    {
+      $insertNew = "insert into Associate (Name, Password, Accu_Com, Address, Admin) values (\"".$_POST['Name']."\", \"".$_POST['Password']."\", ".$_POST['Accu_Com'].", \"".$_POST['Address']."\", ".$_POST['Admin'].");";
+
+      $pdo->query($insertNew);
+    }
+
+    if (isset($_POST['Delete']))
+    {
+      $remove =  "delete from Associate where User_Id = ".$_POST['User_Id'].";";
+
+      $pdo->query($remove);
     }
 ?>

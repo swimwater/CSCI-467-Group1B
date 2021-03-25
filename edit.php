@@ -66,10 +66,27 @@
 
     <br>
     <?php
-      $getAssociateInfo = "select Name, Password, Accu_Com, Address, Admin from Associate where User_Id = ".$_POST['Associate'].";";
-      $result = $pdo->query($getAssociateInfo);
-      if ($result == false){echo "Failed to access Associate database";}
-      $info = $result->fetch();
+      if (isset($_POST['Edit']))
+      {
+        $getAssociateInfo = "select Name, Password, Accu_Com, Address, Admin from Associate where User_Id = ".$_POST['Associate'].";";
+        $result = $pdo->query($getAssociateInfo);
+        if ($result == false){echo "Failed to access Associate database";}
+        $info = $result->fetch();
+
+        $name = $info['Name'];
+        $pass = $info['Password'];
+        $com = $info['Accu_Com'];
+        $add = $info['Address'];
+        $adm =$info['Admin'];
+      }
+      else
+      {
+        $name = "";
+        $pass = "";
+        $com = "";
+        $add = "";
+        $adm = "";
+      }
     ?>
     <div class = 'editAssociate'>
       <form action="processChange.php" method = "POST">
@@ -77,33 +94,33 @@
           <tr align:left;>
             <th>Name:</th>
             <td>
-                <input type="text" name="Name" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Name']."\"";?> required/>
+                <input type="text" name="Name" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$name."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Password:</th>
             <td>
-              <input type="text" name="Password" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$info['Password']."\"";?> required/>
+              <input type="text" name="Password" placeholder="Maximum of 50 characters" size="100" maxlength="50" value=<?php echo "\"".$pass."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Accumulated Commission:</th>
             <td>
-              <input type="number" name="Accu_Com" placeholder="0.00" min="0" max="9999999999999.99" value=<?php echo "\"".$info['Accu_Com']."\"";?> required step="0.01" title="Currency" pattern="^\d+(?:\.\d{1,2})?$"/>
+              <input type="number" name="Accu_Com" placeholder="0.00" min="0" max="9999999999999.99" value=<?php echo "\"".$com."\"";?> required step="0.01" title="Currency" pattern="^\d+(?:\.\d{1,2})?$"/>
             </td>
           </tr>
           <tr>
             <th>Address:</th>
             <td>
-              <input type="text" name="Address" placeholder="Maximum of 100 characters" size="100" maxlength="100" value=<?php echo "\"".$info['Address']."\"";?> required/>
+              <input type="text" name="Address" placeholder="Maximum of 100 characters" size="100" maxlength="100" value=<?php echo "\"".$add."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Position:</th>
             <td>
-              <input type="radio" id="Ad" name="Admin" value='1' <?php if ($info['Admin'] == 1) {echo "checked";}?>/>
+              <input type="radio" id="Ad" name="Admin" value='1' <?php if ($adm == 1) {echo "checked";}?>/>
               <label for="Ad">Administrator</label><br>
-              <input type="radio" id="As" name="Admin" value='0' <?php if ($info['Admin'] == 0) {echo "checked";}?>/>
+              <input type="radio" id="As" name="Admin" value='0' <?php if ($adm == 0) {echo "checked";} else if ($adm == "") {echo "checked";}?>/>
               <label for="As">Associate</label><br>
             </td>
           </tr>
@@ -112,6 +129,7 @@
             <td>
               <?php if(isset($_POST['Edit'])){echo "<input type=\"hidden\" name=\"Edit\" value=\"Edit\"/>";}?>
               <?php if(isset($_POST['Edit'])){echo "<input type=\"hidden\" name=\"User_Id\" value=\"".$_POST['Associate']."\"/>";}?>
+              <?php if(isset($_POST['Add'])){echo "<input type=\"hidden\" name=\"Add\" value=\"Add\"/>";}?>
               <input type="submit" value="Update Database"/>
             </td>
           </tr>
