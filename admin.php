@@ -8,28 +8,35 @@
     {
         if(empty($_POST["user_id"]) || empty($_POST["password"]))
         {
-            $message = '<label>All fields required to enter</label>';
+            echo '<label>All fields required to enter</label>';
         }
         else
         {
-            $id = $_POST['user_id'] ;
-            $pswd = $_POST['password'] ;
-
-            $sql = ("SELECT * FROM Associate WHERE Associate.User_Id = $id AND Associate.Password = '$pswd' AND Admin = 1 ;") ;
-            $login_query = $pdo->query($sql);
-
-            $rows = $login_query->fetch(PDO::FETCH_ASSOC);
-
-            $count = $login_query->rowCount();
-
-            if($count > 0)
+            try
             {
-                $_SESSION["user_id"] = $_POST["user_id"];
-                header("Location: views.php");
+                $id = $_POST['user_id'] ;
+                $pswd = $_POST['password'] ;
+
+                $sql = ("SELECT * FROM Associate WHERE Associate.User_Id = $id AND Associate.Password = '$pswd' AND Associate.Admin = 1 ;") ;
+                $login_query = $pdo->query($sql);
+
+                $rows = $login_query->fetch(PDO::FETCH_ASSOC);
+
+                $count = $login_query->rowCount();
+
+                if($count >= 1)
+                {
+                    $_SESSION["user_id"] = $_POST["user_id"];
+                    header("Location: views.php");
+                }
+                else
+                {
+                    echo'<label>Username OR Password is incorrect</label>';
+                }
             }
-            else
+            catch(PDOException $e)
             {
-                $message = '<label>Username OR Password is incorrect</label>';
+                echo"connection failed:".$e->getmessage();
             }
         }
     }
