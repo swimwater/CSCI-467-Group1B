@@ -24,7 +24,7 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="views.php">View Associate Records</a>
+            <a class="nav-link" href="views.php">View Quotes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="manage.php">Manage Associate Records</a>
