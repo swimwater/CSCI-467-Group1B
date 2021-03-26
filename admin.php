@@ -46,7 +46,7 @@
 <head>
     <meta charset = "utf-8">
     <title>ADMIN PORTAL</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
 
 </head>
 <body>
