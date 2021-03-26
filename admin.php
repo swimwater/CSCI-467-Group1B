@@ -39,30 +39,30 @@
 ?>
 
 
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset = "utf-8">
     <title>ADMIN PORTAL</title>
+    <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-    <div id="box">
+    
+        <form class="box" method="post">
+            <h1>ADMIN PORTAL<h1>
+            <input id="text" type="text" name="user_id" placeholder="USER ID" ><br>
+            <input id="text" type="password" name="password" placeholder="PASSWORD"><br>
 
-        <form method="post">
-            <div style ="font-size: 20px; margin: 10px;">Login</div>
-            <p>ASSOCIATE ID: </p>
-            <input id="text" type="text" name="user_id" ><br><br>
-            <p>PASSWORD: </p>
-            <input id="text" type="password" name="password"><br><br>
-
-            <input id="button" type="submit" name="Login" value="Login">
-
+            <input id="button" type="submit" name="Login" value="Login">  
+        
         </form>
 
-
-
-    </div>
+    
+    
+    
 
 </body>
 
