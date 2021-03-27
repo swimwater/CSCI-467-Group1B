@@ -14,7 +14,7 @@ body
 }
 table
 {
-    width: 800px;
+    width: 900px;
 
 }
 table, td, th
@@ -45,47 +45,10 @@ tr:nth-child(even)
     background-color:white;
     color:black;
 }
+
 h1{
     color:white;
     text-transform: uppercase;
     font-weight: 500;
     padding:12px;
 }
-
-.mybutton
-{
-   width:20%;
-   background: #2ecc71;
-   color:white;
-   border: 0;
-   padding:10px;
-   border-radius:1px;
-   height: 40px;
-   width: 100px;
-}
-#button
-{
-    background: cornflowerblue;
-    position:fixed;
-    top:70px;
-    right:175px;
-    height: 40px;
-    width: 100px;
-    border: 2px solid cornflowerblue;
-}
-#button:focus
-{
-    width: 250px;
-    border-radius: 24px;
-    transition: 0.25s;
-    cursor: pointer;
-}
-
-#DELETE
-{
-    background:red;
-}
-
-
-
-
