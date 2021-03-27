@@ -41,15 +41,9 @@ insert into Quote (User_Id, Cust_Mail, SNote)
   values (8, 'rubberDuck@email.com', "Always seems to squash bugs in code");
 insert into Quote (User_Id, Cust_Mail, SNote)
   values (3, 'chuckECheese@email.com', "His middle name is entertainment");
-<<<<<<< HEAD
 insert into Quote (User_Id, Cust_Mail, SNote)
   values (2, 'NoodlesandCo@email.com', "Wonderful pasta and decent prices");
 insert into Quote (User_Id, Cust_Mail, SNote)
-=======
-insert into Quote (User_Id, Cust_Mail, SNote)
-  values (2, 'NoodlesandCo@email.com', "Wonderful pasta and decent prices");
-insert into Quote (User_Id, Cust_Mail, SNote)
->>>>>>> 350c85869be674766f2f46f36d0357dfd99354d6
   values (5, 'pizzaHut@email.com', "Wants to know about the guy who tried to out pizza the hut");
 insert into Quote (User_Id, Cust_Mail, SNote)
   values (7, 'dominoes@email.com', "Cheap and delicious, I eat this more than I should");
