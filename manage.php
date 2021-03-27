@@ -76,25 +76,21 @@
         <form id="edit" action=edit.php method="POST">
             <input type="hidden" name="Associate" value = <?php echo "\"".$info['User_Id']."\"";?>/>
             <input type="hidden" name="Edit" value = "Edit"/>
-            <input type="submit" value="Edit"/>
+            <input type="submit" class="mybutton" value="Edit"/>
         </form>
         <form id="delete" action=processChange.php method="POST">
             <input type="hidden" name="User_Id" value = <?php echo "\"".$info['User_Id']."\"";?>/>
             <input type="hidden" name="Delete" value = "Delete"/>
-            <input type="submit" value="Delete" onClick='return confirmSubmit()'/>
+            <input type="submit" class="mybutton" id="DELETE" value="Delete" onClick='return confirmSubmit()'/>
         </form>
       </td>
     </tr>
   <?php endwhile;?>
-  <tr>
-    <th>Add New Associate:</th>
-    <td colspan = "6" align = "right">
+
       <form id="add" action=edit.php method="POST">
           <input type="hidden" name="Add" value = "Add"/>
-          <input type="submit" value="Add" id = "button"/>
+          <input type="submit" class="mybutton" value="Add" id = "button"/>
       </form>
-    </td>
-  </tr>
   </table>
 </div>
 
