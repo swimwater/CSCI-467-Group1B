@@ -108,7 +108,7 @@
               <?php if(isset($_POST['Edit'])){echo "<input type=\"hidden\" name=\"Edit\" value=\"Edit\"/>";}?>
               <?php if(isset($_POST['Edit'])){echo "<input type=\"hidden\" name=\"User_Id\" value=\"".$_POST['Associate']."\"/>";}?>
               <?php if(isset($_POST['Add'])){echo "<input type=\"hidden\" name=\"Add\" value=\"Add\"/>";}?>
-              <input type="submit" value="Update Database"/>
+              <input type="submit" class="mybutton" value="Update Database"/>
             </td>
           </tr>
         </table>

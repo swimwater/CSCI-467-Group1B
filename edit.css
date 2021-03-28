@@ -52,3 +52,14 @@ h1{
     font-weight: 500;
     padding:12px;
 }
+.mybutton
+{
+   width:20%;
+   background:gold;
+   color:black;
+   border: 0;
+   padding:10px;
+   border-radius:1px;
+   height: 40px;
+   width: 200px;
+}
