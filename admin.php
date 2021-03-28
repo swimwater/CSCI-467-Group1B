@@ -8,7 +8,9 @@
     {
         if(empty($_POST["user_id"]) || empty($_POST["password"]))
         {
-            echo '<label>All fields required to enter</label>';
+            //$msg="All fields required to enter";
+            $msg = '<div style="text-align: center">ALL FIELDS REQUIRED.</div>';
+            echo "<font color='yellow'>" . $msg . "</font>";
         }
         else
         {
@@ -31,12 +33,14 @@
                 }
                 else
                 {
-                    echo'<label>Username OR Password is incorrect</label>';
+                    $msg2 = '<div style="text-align: center">USERNAME OR PASSWORD INCORRECT.</div>';
+                    echo "<font color='red'>" . $msg2 . "</font>";
                 }
             }
             catch(PDOException $e)
             {
-                echo"connection failed:".$e->getmessage();
+                $msg3 = '<div style="text-align: center">INVALID ARGUMENTS. FAILED TO CONNECT TO DATABASE!.</div>';
+                echo"<font color='tomato'>" . $msg3. "</font>";
             }
         }
     }
