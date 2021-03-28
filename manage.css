@@ -14,7 +14,7 @@ body
 }
 table
 {
-    width: 800px;
+    width: 1000px;
 
 }
 table, td, th
@@ -51,7 +51,6 @@ h1{
     font-weight: 500;
     padding:12px;
 }
-
 .mybutton
 {
    width:20%;
@@ -66,9 +65,8 @@ h1{
 #button
 {
     background: cornflowerblue;
-    position:fixed;
-    top:70px;
-    right:175px;
+    position:relative;
+    left:900px;
     height: 40px;
     width: 100px;
     border: 2px solid cornflowerblue;
@@ -85,6 +83,7 @@ h1{
 {
     background:red;
 }
+
 
 
 
