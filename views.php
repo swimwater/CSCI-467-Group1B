@@ -2,10 +2,7 @@
     include("functions.php");
     require("session.php");
     include("secrets.php");
-
-
-
-
+    include("legacyDatabase.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +11,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>VIEWS</title>
 
-<link rel="stylesheet" href="views.css">    
+<link rel="stylesheet" href="views.css">
 
 </head>
 <body>
@@ -47,32 +44,99 @@
     <h1>VIEWS QUOTES</h1>
 
     <br>
+    </body>
+<?php
+  //status
+  if (isset($_POST['final']) && isset($_POST['sanc']) && isset($_POST['order']))
+  {$status = "and (Quote.Status = 'Finalized' or Quote.Status = 'Sanctioned' or Quote.Status = 'Ordered')";}
+  else if (isset($_POST['final']) && isset($_POST['sanc']))  {$status = "and (Quote.Status = 'Finalized' or Quote.Status = 'Sanctioned')";}
+  else if (isset($_POST['final']) && isset($_POST['order'])) {$status = "and (Quote.Status = 'Finalized' or Quote.Status = 'Ordered')";}
+  else if (isset($_POST['sanc'])  && isset($_POST['order'])) {$status = "and (Quote.Status = 'Sanctioned' or Quote.Status = 'Ordered')";}
+  else if (isset($_POST['final'])) {$status = "and Quote.Status = 'Finalized'";}
+  else if (isset($_POST['sanc']))  {$status = "and Quote.Status = 'Sanctioned'";}
+  else if (isset($_POST['order'])) {$status = "and Quote.Status = 'Ordered'";}
+  else {$status = "";}
+  //date range
+  if (isset($_POST['day1'])) {$day1 = $_POST['day1'];} else {$day1 = date("Y/m/d");}
+  if (isset($_POST['day2'])) {$day2 = $_POST['day2'];} else {$day2 = date("Y/m/d");}
+  if ($day1 < $day2)
+  {
+    $date = " and cast(Quote.Date as date) >= '".$day1."' and cast(Quote.Date as date) <= '".$day2."'";
+  }
+  else if ($day1 > $day2)
+  {
+    $date = " and cast(Quote.Date as date) <= '".$day1."' and cast(Quote.Date as date) >= '".$day2."'";
+  }
+  else
+  {
+    $date = " and cast(Quote.Date as date) = '".$day1."'";
+  }
+  //people
+  if(isset($_POST['sAsso']))
+  {$asso = "and Associate.Name LIKE '%".$_POST['sAsso']."%'";} else {$asso = "";}
+  if(isset($_POST['sCust']))
+  {$cust = "name LIKE '%".$_POST['sCust']."%'";} else {$cust = "";}
+ ?>
 
-       <!-- setting up forms to view certain things -->
+ <form action="views.php" method="POST">
+   <input type="checkbox" id="final" name="final" value="Finalized" checked>
+   <label for="final">Finalized</label><br>
+   <input type="checkbox" id="sanc" name="sanc" value="Sanctioned" checked>
+   <label for="sanc">Sanctioned</label><br>
+   <input type="checkbox" id="order" name="order" value="Ordered" checked>
+   <label for="order">Ordered</label><br>
 
-    <?php
+   <label for="start">Start date:</label>
+   <input type="date" id="start" name="day1" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required>
 
-        $sql = ("SELECT * FROM Associate;");
+   <label for="end">End date:</label>
+   <input type="date" id="end" name="day2" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required><br>
 
-        $associate = $pdo->query($sql);
+   <input type="text" name="sAsso" placeholder="Search by Sales Associate"/><br>
+   <input type="text" name="sCust" placeholder="Search by Customer"/><br>
+   <input type="submit" name="search" value="Search"/><br>
+ </form>
 
-        $rows = $associate->fetchAll(PDO::FETCH_ASSOC);
+ <?php
+  $getQuoteInfo = "select Quote_Id, Name, Cust_Mail, Cust_Id, SNote, Status, cast(Date as date) as DateMade, Associate.User_Id as AsId, Quote.User_Id
+  from Associate, Quote where Associate.User_Id = Quote.User_Id and
+  Quote.Status != 'Unfinalized' ".$status." ".$date." ".$asso.";";
+  $result2 = $pdo->query($getQuoteInfo);
+  if ($result2 == false){echo "Failed to access Plant Repair database";}
+ ?>
 
-        draw_table($rows);
-
-
-
-
-     ?>
-
-
-
-
-
-
-
-
-</body>
-
+ <table>
+   <tr align: left;>
+     <th>Customer</th>
+     <th>Customer Email</th>
+     <th>Associate</th>
+     <th>Quote Id</th>
+     <th>Date Created</th>
+     <th>Status</th>
+     <th>Secret Notes</th>
+   </tr>
+   <?php while ($quoteInfo = $result2->fetch()):?>
+     <?php $getCustId = "select id, name from customers where ".$cust.";";
+     $result = $pdo2->query($getCustId);
+     if ($result == false){echo "Failed to access Legacy database";}?>
+     <tr>
+       <?php
+        while ($custInfo = $result->fetch())
+        {
+          if ($custInfo['id'] == $quoteInfo['Cust_Id'] && $quoteInfo['User_Id'] == $quoteInfo['AsId'])
+          {
+            echo "<td>".$custInfo['name']."</td>";
+            echo "<td>".$quoteInfo['Cust_Mail']."</td>";
+            echo "<td>".$quoteInfo['Name']."</td>";
+            echo "<td>".$quoteInfo['Quote_Id']."</td>";
+            echo "<td>".$quoteInfo['DateMade']."</td>";
+            echo "<td>".$quoteInfo['Status']."</td>";
+            echo "<td>".$quoteInfo['SNote']."</td>";
+          }
+        }
+      ?>
+     </tr>
+   <?php endwhile;?>
+ </table>
 
 </html>
