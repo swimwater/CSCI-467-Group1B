@@ -24,6 +24,7 @@ create table Quote(
     Cust_Id   INT            NOT NULL,
     SNote     VARCHAR(1000),
     Status    CHAR(11)       NOT NULL DEFAULT "Unfinalized",
+    Date      DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     foreign key(User_Id) references Associate(User_Id)
 );
