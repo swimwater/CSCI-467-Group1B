@@ -19,18 +19,18 @@ insert into Associate (Name, Password, Accu_Com, Address, Admin)
 insert into Associate (Name, Password, Accu_Com, Address, Admin)
   values ('The Dead Sea', 'Salty', 0.00, 'Dead Sea', 0);
 
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (2, '420swagmaster@hotmail.co.uk', "This person's email got me a free water bottle", "Finalized");
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (1, 'customerEmail@email.com', "Ryan's secret notes for his first quote", "Sanctioned");
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (6, 'mcdonalds@email.com', "McDonalds is aiiight", "Ordered");
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (5, 'burgerKing@email.com', "Burger king has decent burgers", "Finalized");
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (4, 'wendys@email.com', "I hardly go to wendys. Not sure why", "Ordered");
-insert into Quote (User_Id, Cust_Mail, SNote, Status)
-  values (10, 'buffaloWildWings@email.com', "Mmmm smoky adobo", "Sanctioned");
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (2, '420swagmaster@hotmail.co.uk', "This person's email got me a free water bottle", "Finalized", '20210216');
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (1, 'customerEmail@email.com', "Ryan's secret notes for his first quote", "Sanctioned", '20210304');
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (6, 'mcdonalds@email.com', "McDonalds is aiiight", "Ordered", '20210304');
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (5, 'burgerKing@email.com', "Burger king has decent burgers", "Finalized", '20210306');
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (4, 'wendys@email.com', "I hardly go to wendys. Not sure why", "Ordered", '20210224');
+insert into Quote (User_Id, Cust_Mail, SNote, Status, Date)
+  values (10, 'buffaloWildWings@email.com', "Mmmm smoky adobo", "Sanctioned", '20210305');
 insert into Quote (User_Id, Cust_Mail, SNote)
   values (9, 'testUnfinalEmail@email.com', "Test for displaying unfinalized quotes");
 insert into Quote (User_Id, Cust_Mail, SNote)
