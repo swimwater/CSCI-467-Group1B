@@ -19,6 +19,7 @@ insert into Associate (Name, Password, Accu_Com, Address, Admin)
 insert into Associate (Name, Password, Accu_Com, Address, Admin)
   values ('The Dead Sea', 'Salty', 0.00, 'Dead Sea', 0);
 
+
 insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
   values (2, '420swagmaster@hotmail.co.uk', 1, "This person's email got me a free water bottle", "Finalized", '20210216');
 insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
@@ -55,6 +56,7 @@ insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
   values (10, 'jerseyMikes@email.com', 17, "So expensive, but so worth it");
 insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
   values (9, 'kettleChips@email.com', 18, "So much better than regular potato chips");
+
 
 insert into Quote_Descript (Quote_Id, Price, Descript)
   values (1, 0.00, "The bottle was free");
