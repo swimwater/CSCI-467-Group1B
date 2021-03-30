@@ -75,7 +75,7 @@
   if(isset($_POST['sAsso']))
   {$asso = "and Associate.Name LIKE '%".$_POST['sAsso']."%'";} else {$asso = "";}
   if(isset($_POST['sCust']))
-  {$cust = "name LIKE '%".$_POST['sCust']."%'";} else {$cust = "";}
+  {$cust = "where name LIKE '%".$_POST['sCust']."%'";} else {$cust = "";}
  ?>
 
  <form action="views.php" method="POST">
@@ -98,7 +98,20 @@
  </form>
 
  <?php
-  $getQuoteInfo = "select Quote_Id, Name, Cust_Mail, Cust_Id, SNote, Status, cast(Date as date) as DateMade, Associate.User_Id as AsId, Quote.User_Id
+ $getCustId = "select id, name, contact from customers ".$cust.";";
+ $result = $pdo2->query($getCustId);
+ if ($result == false){echo "Failed to access Legacy database";}
+ $cnt = 1;
+
+ while ($custInfo = $result->fetch())
+ {
+   $custName[$custInfo['id']] = $custInfo['name'];
+   $custCont[$custInfo['id']] = $custInfo['contact'];
+ }
+ ?>
+
+ <?php
+  $getQuoteInfo = "select Quote_Id, Name, Cust_Id, SNote, Status, cast(Date as date) as DateMade, Associate.User_Id as AsId, Quote.User_Id
   from Associate, Quote where Associate.User_Id = Quote.User_Id and
   Quote.Status != 'Unfinalized' ".$status." ".$date." ".$asso.";";
   $result2 = $pdo->query($getQuoteInfo);
@@ -108,33 +121,36 @@
  <table>
    <tr align: left;>
      <th>Customer</th>
-     <th>Customer Email</th>
+     <th>Customer Contact</th>
      <th>Associate</th>
      <th>Quote Id</th>
      <th>Date Created</th>
      <th>Status</th>
      <th>Secret Notes</th>
+     <th>View Quote Info</th>
    </tr>
    <?php while ($quoteInfo = $result2->fetch()):?>
-     <?php $getCustId = "select id, name from customers where ".$cust.";";
-     $result = $pdo2->query($getCustId);
-     if ($result == false){echo "Failed to access Legacy database";}?>
      <tr>
-       <?php
-        while ($custInfo = $result->fetch())
-        {
-          if ($custInfo['id'] == $quoteInfo['Cust_Id'] && $quoteInfo['User_Id'] == $quoteInfo['AsId'])
-          {
-            echo "<td>".$custInfo['name']."</td>";
-            echo "<td>".$quoteInfo['Cust_Mail']."</td>";
-            echo "<td>".$quoteInfo['Name']."</td>";
-            echo "<td>".$quoteInfo['Quote_Id']."</td>";
-            echo "<td>".$quoteInfo['DateMade']."</td>";
-            echo "<td>".$quoteInfo['Status']."</td>";
-            echo "<td>".$quoteInfo['SNote']."</td>";
-          }
-        }
+      <?php
+      if ($quoteInfo['User_Id'] == $quoteInfo['AsId'] && array_key_exists($quoteInfo['Cust_Id'], $custName))
+      {
+        echo "<td>".$custName[$quoteInfo['Cust_Id']]."</td>";
+        echo "<td>".$custCont[$quoteInfo['Cust_Id']]."</td>";
+        echo "<td>".$quoteInfo['Name']."</td>";
+        echo "<td>".$quoteInfo['Quote_Id']."</td>";
+        echo "<td>".$quoteInfo['DateMade']."</td>";
+        echo "<td>".$quoteInfo['Status']."</td>";
+        echo "<td>".$quoteInfo['SNote']."</td>";
+      }
       ?>
+      <td>
+        <form action="viewDescript.php" method="POST">
+          <input type="hidden" name="custName" value=<?php echo "\"".$custName[$quoteInfo['Cust_Id']]."\"";?>/>
+          <input type="hidden" name="custCont" value=<?php echo "\"".$custCont[$quoteInfo['Cust_Id']]."\"";?>/>
+          <input type="hidden" name="QId" value=<?php echo "\"".$quoteInfo['Quote_Id']."\"";?>/>
+          <input type="submit" value="Quote Details"/>
+        </form>
+      </td>
      </tr>
    <?php endwhile;?>
  </table>

@@ -20,42 +20,42 @@ insert into Associate (Name, Password, Accu_Com, Address, Admin)
   values ('The Dead Sea', 'Salty', 0.00, 'Dead Sea', 0);
 
 
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (2, '420swagmaster@hotmail.co.uk', 1, "This person's email got me a free water bottle", "Finalized", '20210216');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (1, 'customerEmail@email.com', 2, "Ryan's secret notes for his first quote", "Sanctioned", '20210304');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (6, 'mcdonalds@email.com', 3, "McDonalds is aiiight", "Ordered", '20210304');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (5, 'burgerKing@email.com', 4, "Burger king has decent burgers", "Finalized", '20210306');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (4, 'wendys@email.com', 5, "I hardly go to wendys. Not sure why", "Ordered", '20210224');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote, Status, Date)
-  values (10, 'buffaloWildWings@email.com', 6, "Mmmm smoky adobo", "Sanctioned", '20210305');
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (9, 'testUnfinalEmail@email.com', 7, "Test for displaying unfinalized quotes");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (3, 'epicGamer@email.com', 8, "Ask this person to take a shower");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (7, 'theAbsoluteBest@email.com', 9, "Best person I've ever met");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (8, 'rubberDuck@email.com', 10, "Always seems to squash bugs in code");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (3, 'chuckECheese@email.com', 11, "His middle name is entertainment");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (2, 'NoodlesandCo@email.com', 12, "Wonderful pasta and decent prices");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (5, 'pizzaHut@email.com', 13, "Wants to know about the guy who tried to out pizza the hut");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (7, 'dominoes@email.com', 14, "Cheap and delicious, I eat this more than I should");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (4, 'littleCaesars@email.com', 15, "Can't beat the price");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (1, 'jimmyJohns@email.com', 16, "Taste the best after swimming");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (10, 'jerseyMikes@email.com', 17, "So expensive, but so worth it");
-insert into Quote (User_Id, Cust_Mail, Cust_Id, SNote)
-  values (9, 'kettleChips@email.com', 18, "So much better than regular potato chips");
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (2, 1, "This person's email got me a free water bottle", "Finalized", '20210216');
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (1, 2, "Ryan's secret notes for his first quote", "Sanctioned", '20210304');
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (6, 3, "McDonalds is aiiight", "Ordered", '20210304');
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (5, 4, "Burger king has decent burgers", "Finalized", '20210306');
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (4, 5, "I hardly go to wendys. Not sure why", "Ordered", '20210224');
+insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
+  values (10, 6, "Mmmm smoky adobo", "Sanctioned", '20210305');
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (9, 7, "Test for displaying unfinalized quotes");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (3, 8, "Ask this person to take a shower");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (7, 9, "Best person I've ever met");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (8, 10, "Always seems to squash bugs in code");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (3, 11, "His middle name is entertainment");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (2, 12, "Wonderful pasta and decent prices");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (5, 13, "Wants to know about the guy who tried to out pizza the hut");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (7, 14, "Cheap and delicious, I eat this more than I should");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (4, 15, "Can't beat the price");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (1, 16, "Taste the best after swimming");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (10, 17, "So expensive, but so worth it");
+insert into Quote (User_Id, Cust_Id, SNote)
+  values (9, 18, "So much better than regular potato chips");
 
 
 insert into Quote_Descript (Quote_Id, Price, Descript)

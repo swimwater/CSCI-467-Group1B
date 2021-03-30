@@ -20,7 +20,6 @@ create table Associate(
 create table Quote(
     Quote_Id  INT            NOT NULL PRIMARY KEY AUTO_INCREMENT,
     User_Id   INT            NOT NULL,
-    Cust_Mail VARCHAR(50)    NOT NULL,
     Cust_Id   INT            NOT NULL,
     SNote     VARCHAR(1000),
     Status    CHAR(11)       NOT NULL DEFAULT "Unfinalized",
