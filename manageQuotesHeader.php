@@ -17,6 +17,10 @@
 		
 		<h1>Manage Unfinalized Quotes</h1>
 
+		<!-- greet user -->
+		<p>Hello, {USERNAME}. Please choose a quote to edit below.</p>
+
+
 		<table class="mx-auto">
 			<!-- header row for unfinalized quotes table-->
 			<tr>
@@ -41,8 +45,6 @@
 	
 					$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-					echo "Successfully connected to database... fetching quote data<br>";
-
 					// get all unfinalized quotes that have this user associated with them.
 					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Unfinalized' AND User_Id=:userID"); 
 
@@ -58,9 +60,6 @@
 	
 					$legacyPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-					echo "Successfully connected to legacy database.<br>";
-
-
 					foreach($unfinalizedQuotes as $quote)
 					{
 						// get the customer information pertaining to this quote we're displaying
@@ -74,6 +73,9 @@
 
 						// hidden field containing quote ID. This will be posted to the detail page, allowing us to find the quote's line items.
 						echo '<input type="hidden" name="quoteID" value="'.$quote["Quote_Id"].'">';
+
+						// hidden field containing secret quote notes. These notes will be posted to the following page where they are displayed for editing.
+						echo '<input type="hidden" name="sNote" value="'.$quote["SNote"].'">';
 
 						// the button that will submit the form to the page where the user will edit the quote in detail.
 						$editButton = '<td><input type="submit" class="w-100" value="Edit Quote"/></td>';
