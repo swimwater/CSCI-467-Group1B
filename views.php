@@ -131,26 +131,23 @@
    </tr>
    <?php while ($quoteInfo = $result2->fetch()):?>
      <tr>
-      <?php
-      if ($quoteInfo['User_Id'] == $quoteInfo['AsId'] && array_key_exists($quoteInfo['Cust_Id'], $custName))
-      {
-        echo "<td>".$custName[$quoteInfo['Cust_Id']]."</td>";
-        echo "<td>".$custCont[$quoteInfo['Cust_Id']]."</td>";
-        echo "<td>".$quoteInfo['Name']."</td>";
-        echo "<td>".$quoteInfo['Quote_Id']."</td>";
-        echo "<td>".$quoteInfo['DateMade']."</td>";
-        echo "<td>".$quoteInfo['Status']."</td>";
-        echo "<td>".$quoteInfo['SNote']."</td>";
-      }
-      ?>
-      <td>
-        <form action="viewDescript.php" method="POST">
-          <input type="hidden" name="custName" value=<?php echo "\"".$custName[$quoteInfo['Cust_Id']]."\"";?>/>
-          <input type="hidden" name="custCont" value=<?php echo "\"".$custCont[$quoteInfo['Cust_Id']]."\"";?>/>
-          <input type="hidden" name="QId" value=<?php echo "\"".$quoteInfo['Quote_Id']."\"";?>/>
-          <input type="submit" value="Quote Details"/>
-        </form>
-      </td>
+      <?php if ($quoteInfo['User_Id'] == $quoteInfo['AsId'] && array_key_exists($quoteInfo['Cust_Id'], $custName)):?>
+        <td><?php echo $custName[$quoteInfo['Cust_Id']];?></td>
+        <td><?php echo $custCont[$quoteInfo['Cust_Id']];?></td>
+        <td><?php echo $quoteInfo['Name'];?></td>
+        <td><?php echo $quoteInfo['Quote_Id'];?></td>
+        <td><?php echo $quoteInfo['DateMade'];?></td>
+        <td><?php echo $quoteInfo['Status'];?></td>
+        <td><?php echo $quoteInfo['SNote'];?></td>
+        <td>
+          <form action="viewDescript.php" method="POST">
+            <input type="hidden" name="custName" value=<?php echo "\"".$custName[$quoteInfo['Cust_Id']]."\"";?>/>
+            <input type="hidden" name="custCont" value=<?php echo "\"".$custCont[$quoteInfo['Cust_Id']]."\"";?>/>
+            <input type="hidden" name="QId" value=<?php echo "\"".$quoteInfo['Quote_Id']."\"";?>/>
+            <input type="submit" value="Quote Details"/>
+          </form>
+        </td>
+      <?php endif;?>
      </tr>
    <?php endwhile;?>
  </table>
