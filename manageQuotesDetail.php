@@ -20,6 +20,9 @@
 
 		<h2> Edit quote line items:</h2>
 		<button onclick="addLineItem()">Add line item</button>
+
+		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
+		
 		<table id="lineItemTable" class="mx-auto">
 			<!-- header row for line item table-->
 			<tr>
@@ -45,22 +48,22 @@
 		
 				$quoteLineItems = $query->fetchAll(PDO::FETCH_ASSOC);
 
-				echo '<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">';
+				echo '<input type="hidden" id="quoteID" name="quoteID" value="'.$_POST["quoteID"].'">';
 				
 				$n = 0; // number of line items
 				foreach($quoteLineItems as $lineItem)
 				{
-					$descriptionTextField = '<input type="text" class="w-100" name="description#'.$lineItem["Descrip_Id"].'#" value="'.$lineItem["Descript"].'"/>';
-					$priceTextField = '<input type="number" class="w-100" step="0.01"name="price#'.$lineItem["Descrip_Id"].'#" value="'.$lineItem["Price"].'"/>';
+					$n++;
+					$descriptionTextField = '<input type="text" class="w-100" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
+					$priceTextField = '<input type="number" class="w-100" step="0.01"name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
 
-					$removeButton = '<button style="w-100" onclick="removeLineItem('.$lineItem["Descrip_Id"].')">Remove</button>';
-
-					$flag = '<input type="hidden" name="flag" value="'.$n.'">'
+					$removeButton = '<button style="w-100" onclick="removeLineItem('.$n.')">Remove</button>';
+					
+					echo '<input type="hidden" id="lineItemID'.$n.'" name="lineItemID'.$n.'" value="'.$lineItem['Descrip_Id'].'">';
 
 					// print the table row with the line item description and price.
-					echo '<tr id='.$lineItem["Descrip_Id"].'><td>'.$descriptionTextField.'</td><td>'.$priceTextField.'</td><td>'.$removeButton.'</td></tr>';
-					
-					$n++;
+					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceTextField.'</td><td>'.$removeButton.'</td></tr>';
+
 				}
 				
 				echo '</table>';
@@ -79,7 +82,7 @@
 		<?php
 			// allow the user to edit the note attached to this quote.
 			echo '<h2> Edit quote notes:</h2>';
-			echo '<input type="number" name="snotes#'.$_POST["quoteID"].'#" value="'.$_POST["sNote"].'"/><br>';
+			echo '<input type="text" name="snotes" value="'.$_POST["sNote"].'"/><br>';
 		?>
 
 		<!--the button that will submit the form to save the current line edits to the database.-->
@@ -103,20 +106,26 @@ function addLineItem() {
 	numLineItems++;
 
 	// create line item fields, and removal button:
-	var descriptionTextField = '<input type="text" class="w-100" name="description#' + numLineItems + '#" placeholder="Enter line item description"/>';
-	var priceTextField = '<input type="number" class="w-100" step="0.01"name="price#' + numLineItems + '#" placeholder="0.00"/>';
+	var descriptionTextField = '<input type="text" class="w-100" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
+	var priceTextField = '<input type="number" class="w-100" step="0.01"name="price' + numLineItems + '" placeholder="0.00"/>';
 	var removeButtonHTML = '<button style="w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
 	var newLineItemHTML = "<tr id=" + numLineItems + "><td>" + descriptionTextField + "</td><td>" + priceTextField + "</td><td>" + removeButtonHTML + "</td></tr>";
 
+	//create an id field for the new line item containing #, so the confirmation page knows this is a new line item and does not already exist in the database.
+	var idFieldHTML = '<input type="hidden" id="lineItemID' + numLineItems + '" name="lineItemID' + numLineItems + '" value="#">';
+
 	// append the row to the line item table.
 	$("#lineItemTable").append(newLineItemHTML);
+
+	// append the id field to the new row.
+	$("#" + numLineItems).append(idFieldHTML);
 
 	$("#numLineItems").val(numLineItems);
 }
 
-// removes a line item from the table, causing it to not be added or be removed from the quote.
+// removes a line item from the table, causing it to not be added or be removed from the existing quote.
 function removeLineItem(itemID) {
 	event.preventDefault(); // suppress form submission
 
