@@ -54,10 +54,18 @@
   $result3 = $pdo->query($getAssocInfo2);
   if ($result3 == false){echo "Failed to access Plant Repair database";}
 
-  if (isset($_SESSION['User_Id']))
+  if (isset($_POST['Asso1']))
+  {
+    $getQuoteRecord = "select Associate.User_Id, name, Admin, Quote.Quote_Id, Status from Associate, Quote, Quote_Descript
+    where Associate.User_Id = ".$_POST['Asso1']." and Quote.Quote_Id = Quote_Descript.Quote_Id;";
+    $User_Id = $_POST['Asso1'];
+    $User_Id2 = $_POST['Asso2'];
+  }
+  else if (isset($_SESSION['User_Id']))
   {
     $getQuoteRecord = "select Associate.User_Id, name, Admin, Quote.Quote_Id, Status from Associate, Quote, Quote_Descript
     where Associate.User_Id = ".$_SESSION['User_Id']." and Quote.Quote_Id = Quote_Descript.Quote_Id;";
+    $User_Id = $_SESSION['User_Id'];
   }
   else
   {
@@ -73,17 +81,24 @@
   $result = $pdo->query($getQuoteRecord);
   if ($result == false){echo "Failed to access Plant Repair database";}
 ?>
-  <form action="" method="POST">
-    <select id="Asso1" name="Asso1">
+  <form action="" method="POST" id="AssoForm">
+    <select id="Asso1" name="Asso1" onchange="submit()">
       <?php while ($AssocInfo = $result2->fetch()):?>
-        <option <?php if (isset($_SESSION['User_Id'])){if ($_SESSION['User_Id'] == $AssocInfo['User_Id']) {echo "selected";}} else if (isset($first)){ if ($first == $AssocInfo['User_Id']) {echo "selected";}}?> value=<?php echo "\"".$AssocInfo['User_Id']."\"";?>><?php echo $AssocInfo['User_Id'].": ".$AssocInfo['Name'];?></option>
+        <option <?php if (isset($User_Id)){if ($User_Id == $AssocInfo['User_Id']) {echo "selected";}} else if (isset($first)){ if ($first == $AssocInfo['User_Id']) {echo "selected";}}?> value=<?php echo "\"".$AssocInfo['User_Id']."\"";?>><?php echo $AssocInfo['User_Id'].": ".$AssocInfo['Name'];?></option>
       <?php endwhile;?>
     </select>
-    <select id="Asso2" name="Asso2">
+    <select id="Asso2" name="Asso2" onchange="submit()">
       <?php while ($AssocInfo2 = $result3->fetch()):?>
-        <option value=<?php echo "\"".$AssocInfo2['User_Id']."\"";?>><?php echo $AssocInfo2['User_Id'].": ".$AssocInfo2['Name'];?></option>
+        <option <?php if (isset($User_Id2)){if ($User_Id2 == $AssocInfo2['User_Id']) {echo "selected";}} ?> value=<?php echo "\"".$AssocInfo2['User_Id']."\"";?>><?php echo $AssocInfo2['User_Id'].": ".$AssocInfo2['Name'];?></option>
       <?php endwhile;?>
     </select>
   </form>
 
 </html>
+
+<script>
+  function submit()
+  {
+    {document.getElementById("AssoForm").submit();}
+  }
+</script>
