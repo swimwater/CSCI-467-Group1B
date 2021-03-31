@@ -6,6 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--include jquery via CDN --->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>TRANSFER QUOTE</title>
 
@@ -56,16 +59,29 @@
 
   if (isset($_POST['Asso1']))
   {
-    $getQuoteRecord = "select Associate.User_Id, name, Admin, Quote.Quote_Id, Status from Associate, Quote, Quote_Descript
-    where Associate.User_Id = ".$_POST['Asso1']." and Quote.Quote_Id = Quote_Descript.Quote_Id;";
+    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    where Associate.User_Id = ".$_POST['Asso1']." and Quote.User_Id = ".$_POST['Asso1'].";";
     $User_Id = $_POST['Asso1'];
     $User_Id2 = $_POST['Asso2'];
   }
   else if (isset($_SESSION['User_Id']))
   {
-    $getQuoteRecord = "select Associate.User_Id, name, Admin, Quote.Quote_Id, Status from Associate, Quote, Quote_Descript
-    where Associate.User_Id = ".$_SESSION['User_Id']." and Quote.Quote_Id = Quote_Descript.Quote_Id;";
+    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    where Associate.User_Id = ".$_SESSION['User_Id']." and Quote.User_Id = ".$_SESSION['User_Id'].";";
     $User_Id = $_SESSION['User_Id'];
+
+    if(isset($_SESSION['User_Id2']))
+    {
+      $User_Id2 = $_SESSION['User_Id2'];
+    }
+    else
+    {
+      $get1Assoc = "select User_Id from Associate;";
+      $get1 = $pdo->query($get1Assoc);
+      if ($get1 == false){echo "Failed to access Plant Repair database";}
+      $getFirst = $get1->fetch();
+      $first = $getFirst['User_Id'];
+    }
   }
   else
   {
@@ -75,8 +91,8 @@
     $getFirst = $get1->fetch();
     $first = $getFirst['User_Id'];
 
-    $getQuoteRecord = "select Associate.User_Id, name, Admin, Quote.Quote_Id, Status from Associate, Quote, Quote_Descript
-    where Associate.User_Id = ".$first." and Quote.Quote_Id = Quote_Descript.Quote_Id;";
+    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    where Associate.User_Id = ".$first." and Quote.User_Id = ".$first.";";
   }
   $result = $pdo->query($getQuoteRecord);
   if ($result == false){echo "Failed to access Plant Repair database";}
@@ -94,11 +110,52 @@
     </select>
   </form>
 
+  <?php
+    if (isset($User_Id2)) {$Id2 = $User_Id2;} else {$Id2 = $first;}
+    $getA2Name = "select Name, Admin from Associate where User_Id = ".$Id2.";";
+    $result4 = $pdo->query($getA2Name);
+    if ($result4 == false){echo "Failed to access Plant Repair database";}
+    $A2Name = $result4->fetch();
+    $Name2 = $A2Name['Name'];
+    $Pos2 = $A2Name['Admin'];
+  ?>
+<form action = "processTransfer.php" method = "POST">
+  <table>
+    <tr align: left;>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Quote Id</th>
+      <th>Name to Transfer To</th>
+      <th>Position</th>
+      <th>Select to Transfer</th>
+    </tr>
+    <?php while ($QuoteInfo = $result->fetch()):?>
+      <tr>
+        <td><?php echo $QuoteInfo['Name'];?></td>
+        <td><?php if ($QuoteInfo['Admin'] == 1) {echo "Administrator";} else {echo "Associate";}?></td>
+        <td><?php echo $QuoteInfo['Quote_Id'];?></td>
+        <td><?php echo $Name2;?></td>
+        <td><?php if ($Pos2 == 1) {echo "Administrator";} else {echo "Associate";}?></td>
+        <td>
+          <input type="checkbox" name='QId[]' value=<?php echo "\"".$QuoteInfo['Quote_Id']."\"";?>>
+        </td>
+      </tr>
+    <?php endwhile;?>
+    <tr>
+      <th>Submit:</th>
+      <td colspan="5">
+        <input type="hidden" name="From" value = <?php if (isset($User_Id)){echo "\"".$User_Id."\"";} else if (isset($first)){echo "\"".$first."\"";} ?>/>
+        <input type="hidden" name="To" value = <?php echo "\"".$Id2."\"";?>/>
+        <input type="submit" name="Transfer Quotes" value="Transfer"/>
+      </td>
+    <tr>
+  </table>
+</form>
 </html>
 
 <script>
   function submit()
   {
-    {document.getElementById("AssoForm").submit();}
+    $("#AssoForm").submit();
   }
 </script>
