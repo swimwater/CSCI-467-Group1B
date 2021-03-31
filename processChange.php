@@ -1,7 +1,10 @@
 <?php
     require_once("session.php");
     require_once("secrets.php");
-    header('Location:manage.php');
+    if (!isset($_POST['Delete']))
+    {
+      header('Location:manage.php');
+    }
 
     if (isset($_POST['Edit']))
     {
@@ -27,8 +30,19 @@
 
     if (isset($_POST['Delete']))
     {
-      $remove =  "delete from Associate where User_Id = ".$_POST['User_Id'].";";
-
-      $pdo->query($remove);
+      $checkQuote = "select COUNT(*) from Quote where Quote.User_Id = ".$_POST['User_Id'].";";
+      $result = $pdo->query($checkQuote);
+      $rows = $result->fetchColumn();
+      if ($rows != 0)
+      {
+        header('Location:transferQuote.php');
+        $_SESSION['User_Id'] = $_POST['User_Id'];
+      }
+      else
+      {
+        header('Location:manage.php');
+        $remove =  "delete from Associate where User_Id = ".$_POST['User_Id'].";";
+        $pdo->query($remove);
+      }
     }
 ?>

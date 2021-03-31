@@ -9,7 +9,7 @@
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>MANAGE</title>
-  
+
 <link rel="stylesheet" href="manage.css">
 
 </head>
@@ -99,7 +99,7 @@
 <script LANGUAGE="JavaScript">
 function confirmSubmit()
 {
-var agree=confirm("Are you sure you want to continue? This action is irreverable");
+var agree=confirm("Are you sure you want to continue? This action is irreverable     WARNING: The Associate Cannot be Deleted if they have quotes tied to their account. You must transfer all quotes to another Associate before they can be removed from the system");
 if (agree)
  return true ;
 else
