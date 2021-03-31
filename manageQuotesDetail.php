@@ -16,10 +16,12 @@
 
 		<h1>Edit Details - Quote #<?php echo $_POST["quoteID"]?></h1>
 
-		<button onclick="addLineItem()">Add line item</button>
+		
 
+		<h2> Edit quote line items:</h2>
+		<button onclick="addLineItem()">Add line item</button>
 		<table id="lineItemTable" class="mx-auto">
-			<!--Header row-->
+			<!-- header row for line item table-->
 			<tr>
 				<th style="width: 40rem">Line Item Description</th>
 				<th style="width: 8rem">Price</th>
@@ -29,24 +31,23 @@
 			<?php
 			try{
 				include("credentials.php");
-				//Connect to the database
+				// connect to the database
 				$dsn = "mysql:host=courses;dbname=z1866716";
 
 				$pdo = new PDO($dsn,$username,$password);
 	
 				$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-				//Get all the quotes in the database.
+				// get all the quotes in the database.
 				$query = $pdo->prepare("SELECT * FROM Quote_Descript WHERE Quote_Id=:selectedQuoteID"); 
 
 				$query->execute(array(":selectedQuoteID" => $_POST["quoteID"]));
 		
 				$quoteLineItems = $query->fetchAll(PDO::FETCH_ASSOC);
 
-				echo '<form action="http://students.cs.niu.edu/~z1866716/manageQuotesDetail.php" method="POST">';
+				echo '<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">';
 				
-				echo '<h2> Edit quote line items:</h2>';
-
+				$n = 0; // number of line items
 				foreach($quoteLineItems as $lineItem)
 				{
 					$descriptionTextField = '<input type="text" class="w-100" name="description#'.$lineItem["Descrip_Id"].'#" value="'.$lineItem["Descript"].'"/>';
@@ -54,25 +55,34 @@
 
 					$removeButton = '<button style="w-100" onclick="removeLineItem('.$lineItem["Descrip_Id"].')">Remove</button>';
 
-					//Print the table row with the line item description and price.
+					$flag = '<input type="hidden" name="flag" value="'.$n.'">'
+
+					// print the table row with the line item description and price.
 					echo '<tr id='.$lineItem["Descrip_Id"].'><td>'.$descriptionTextField.'</td><td>'.$priceTextField.'</td><td>'.$removeButton.'</td></tr>';
+					
+					$n++;
 				}
+				
+				echo '</table>';
+				// hidden field containing the number of line items.
+				echo '<input type="hidden" id="numLineItems" name="numLineItems" value="'.$n.'">';
 
 			}
 			catch(PDOexception $e){
-				echo "Failed to connect to database:" . $e->getMessage(); //Print the error message if we fail to connect.
+				// print the error message if we fail to connect.
+				echo "Failed to connect to database:" . $e->getMessage(); 
 			}
 
 			?>
-		</table>
+		<!--</table>-->
 
 		<?php
 			// allow the user to edit the note attached to this quote.
 			echo '<h2> Edit quote notes:</h2>';
-			echo '<input type="text" name="snotes#'.$_POST["quoteID"].'#" value="'.$_POST["sNote"].'"/><br>';
+			echo '<input type="number" name="snotes#'.$_POST["quoteID"].'#" value="'.$_POST["sNote"].'"/><br>';
 		?>
 
-		<!--The button that will submit the form to save the current line edits to the database.-->
+		<!--the button that will submit the form to save the current line edits to the database.-->
 		<input type="submit" value="Save Changes to Quote"/>
 
 		</form>
@@ -89,28 +99,32 @@ var rowID = 1;
 
 function addLineItem() {
 
+	var numLineItems = $("#numLineItems").val();
+	numLineItems++;
+
 	// create line item fields, and removal button:
-	var descriptionTextField = '<input type="text" class="w-100" name="description#' + rowID + '#" placeholder="Enter line item description"/>';
-	var priceTextField = '<input type="number" class="w-100" step="0.01"name="price#' + rowID + '#" placeholder="0.00"/>';
-	var removeButtonHTML = '<button style="w-100" onclick="removeLineItem(' + rowID + ')">Remove</button>';
+	var descriptionTextField = '<input type="text" class="w-100" name="description#' + numLineItems + '#" placeholder="Enter line item description"/>';
+	var priceTextField = '<input type="number" class="w-100" step="0.01"name="price#' + numLineItems + '#" placeholder="0.00"/>';
+	var removeButtonHTML = '<button style="w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
-	var newLineItemHTML = "<tr id=" + rowID + "><td>" + descriptionTextField + "</td><td>" + priceTextField + "</td><td>" + removeButtonHTML + "</td></tr>";
+	var newLineItemHTML = "<tr id=" + numLineItems + "><td>" + descriptionTextField + "</td><td>" + priceTextField + "</td><td>" + removeButtonHTML + "</td></tr>";
 
 	// append the row to the line item table.
 	$("#lineItemTable").append(newLineItemHTML);
 
-	rowID++; // increment the row id tracker
+	$("#numLineItems").val(numLineItems);
 }
 
 // removes a line item from the table, causing it to not be added or be removed from the quote.
 function removeLineItem(itemID) {
-
 	event.preventDefault(); // suppress form submission
 
 	$("#" + itemID).remove(); // delete the line item
 
-	rowID--; // decrement the row id tracker
+	var numLineItems = $("#numLineItems").val();
+	numLineItems--;
+	$("#numLineItems").val(numLineItems);
 }
 
 </script>
