@@ -14,16 +14,14 @@
 	<body>
 	<div class="container-fluid">
 
-		<h1>Edit Details - Quote #<?php echo $_POST["quoteID"]?></h1>
-
-		
+		<h1>Edit Details - Quote #<?php echo $_POST["quoteID"]?></h1>		
 
 		<h2> Edit quote line items:</h2>
 		<button onclick="addLineItem()">Add line item</button>
 
 		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
 		
-		<table id="lineItemTable" class="mx-auto">
+		<table id="lineItemTable">
 			<!-- header row for line item table-->
 			<tr>
 				<th style="width: 40rem">Line Item Description</th>
@@ -49,6 +47,8 @@
 				$quoteLineItems = $query->fetchAll(PDO::FETCH_ASSOC);
 
 				echo '<input type="hidden" id="quoteID" name="quoteID" value="'.$_POST["quoteID"].'">';
+
+				echo '<input type="hidden" id="deletedRows" name="deletedRows" value="">';
 				
 				$n = 0; // number of line items
 				foreach($quoteLineItems as $lineItem)
@@ -129,7 +129,15 @@ function addLineItem() {
 function removeLineItem(itemID) {
 	event.preventDefault(); // suppress form submission
 
+	//update the deleted rows with this line item if it already exists in the database:
+	if($("#lineItemID" + itemID).val() != "#")
+	{
+		var deletedRows = $("#deletedRows").val();
+		$("#deletedRows").val(deletedRows + $("#lineItemID" + itemID).val() + ",");
+	}
+
 	$("#" + itemID).remove(); // delete the line item
+	
 
 	var numLineItems = $("#numLineItems").val();
 	numLineItems--;

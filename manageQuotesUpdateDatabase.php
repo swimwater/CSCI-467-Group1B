@@ -53,6 +53,26 @@
             }
         }
 
+        $deletedRows = explode(',', $_POST["deletedRows"]);
+        print_r($deletedRows);
+
+        for ($j = 0; $j < count($deletedRows) - 1; $j++)
+        {
+            echo 'DELETING ROW '.$deletedRows[$j].'<br>';
+
+            // delete the row
+            $query = $pdo->prepare("DELETE FROM Quote_Descript WHERE Descrip_Id = :descrID"); 
+
+            $query->execute(array(":descrID" => $deletedRows[$j]));
+        }
+        
+        $sNote = $_POST["snotes"];
+
+        // update quote notes after line item changes:
+        $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote WHERE Quote_Id = :quoteID"); 
+
+        $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
+
     ?>
 
 </body>
