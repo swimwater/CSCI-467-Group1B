@@ -18,7 +18,7 @@
 		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details</h1>	
 
 		<!-- button for adding line items -->
-		<button class="btn btn-primary mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
+		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
 
 		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
 		
@@ -83,6 +83,12 @@
 				echo "Error obtaining or processing quote details: " . $e->getMessage(); 
 			}
 			?>
+
+		<div class="form-check pb-3">
+		<label class="form-check-label">
+			<input type="checkbox" class="form-check-input" name="finalizeCheckbox" value="">Finalize Quote
+		</label>
+		</div>
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
