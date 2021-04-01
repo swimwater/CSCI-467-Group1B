@@ -89,9 +89,20 @@
 			<input type="checkbox" class="form-check-input" name="finalizeCheckbox" value="">Finalize Quote
 		</label>
 		</div>
+		
+		<div class="row">
+
+		<!-- a back button to take the user back to the header view -->
+		<a class="btn btn-danger ml-2 mr-2" href="http://students.cs.niu.edu/~z1866716/manageQuotesHeader.php" role="button">Cancel</a>
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
+
+		
+
+		</div>
+
+
 
 		</form>
 	</div>

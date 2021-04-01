@@ -11,92 +11,97 @@
     </head>
 
     <body>
-        <h1>Confirmation</h1>
-
         <?php
 
-            include("credentials.php");
-            // connect to the database
-            $dsn = "mysql:host=courses;dbname=z1866716";
+            try {
+                include("credentials.php");
+                // connect to the database
+                $dsn = "mysql:host=courses;dbname=z1866716";
 
-            $pdo = new PDO($dsn,$username,$password);
+                $pdo = new PDO($dsn,$username,$password);
 
-            $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            
-            print_r($_POST);
-            
-            for($i = 1; $i <= $_POST["numLineItems"]; $i++)
-            {
-                echo '<p>LINE ITEM #'.$i.' ID = '.$_POST["lineItemID".$i].'</p>';
+                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 
                 $quoteID = $_POST["quoteID"];
-                $description = $_POST["description".$i];
-                $price = $_POST["price".$i];
+                
+                print_r($_POST);
+                echo '<br>';
 
-                if($_POST["lineItemID".$i] == "#")
+                for($i = 1; $i <= $_POST["numLineItems"]; $i++)
                 {
-                    echo '<p>ELEMENT WAS ADDED IN MANAGE VIEW. WE WILL ADD THIS TO THE DATABASE.</p>';
-                    echo '<p>Its description is'.$description.'<p>';
-                    echo '<p>Its price is'.$price.'<p>';
+                    echo ' ITERATION '.$i.'...<br>';
+                    if(isset($_POST["description".$i]) && isset($_POST["price".$i]))
+                    {
+                        echo ' row '.$i.'is valid, doing stuff...<br>';
+                        $description = $_POST["description".$i];
+                        $price = $_POST["price".$i];
 
-                    // the item is not in the database. add it as a new item:
-                    $query = $pdo->prepare("INSERT INTO Quote_Descript (Quote_Id, Price, Descript) VALUES (:quoteId, :price, :descr)"); 
+                        if($_POST["lineItemID".$i] == "#")
+                        {
+                            // the item is not in the database. add it as a new item:
+                            $query = $pdo->prepare("INSERT INTO Quote_Descript (Quote_Id, Price, Descript) VALUES (:quoteId, :price, :descr)"); 
 
-                    $query->execute(array(":quoteId" => $quoteID, ":price" => $price, ":descr" => $description));
+                            $query->execute(array(":quoteId" => $quoteID, ":price" => $price, ":descr" => $description));
+                        }
+                        else
+                        {
+                            $descrID = $_POST["lineItemID".$i]; // pull the descriptor id for use in query
+
+                            // the item already exists in the database. update it based on its descriptor id:
+                            $query = $pdo->prepare("UPDATE Quote_Descript SET Price = :price, Descript = :descr WHERE Descrip_Id = :descrID"); 
+
+                            $query->execute(array(":price" => $price, ":descr" => $description, ":descrID" => $descrID));
+                        }
+                    }
+                    else
+                    {
+                        echo ' skipping row '.$i.'...<br>';
+                    }
                 }
-                else
+
+                $deletedRows = explode(',', $_POST["deletedRows"]);
+
+                for ($j = 0; $j < count($deletedRows) - 1; $j++)
                 {
-                    $descrID = $_POST["lineItemID".$i]; // pull the descriptor id for use in query
+                    // delete the row
+                    $query = $pdo->prepare("DELETE FROM Quote_Descript WHERE Descrip_Id = :descrID"); 
 
-                    echo '<p>ELEMENT WAS PREEXISTING, WE WILL UPDATE THIS IN THE DATABASE.</p>';
-                    echo '<p>Its description is'.$description.'<p>';
-                    echo '<p>Its price is'.$price.'<p>';
-
-                    // the item already exists in the database. update it based on its descriptor id:
-                    $query = $pdo->prepare("UPDATE Quote_Descript SET Price = :price, Descript = :descr WHERE Descrip_Id = :descrID"); 
-
-                    $query->execute(array(":price" => $price, ":descr" => $description, ":descrID" => $descrID));
+                    $query->execute(array(":descrID" => $deletedRows[$j]));
                 }
+                
+                $sNote = $_POST["snotes"];
+
+                // update quote notes after line item changes:
+                // if the user checked the finalize quote checkbox, we set the quote to finalized in the database.
+                if(isset($_POST['finalizeCheckbox']))
+                {
+                    // set this quote we are modifying to finalized:
+                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Status = 'Finalized' WHERE Quote_Id = :quoteID"); 
+
+                    $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
+
+                }
+                else // if the quote is not to be finalized, simply update its notes.
+                {
+                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote WHERE Quote_Id = :quoteID"); 
+
+                    $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
+                }
+                
+                echo '<div class="container-fluid">';
+                echo '<h1 class="pt-2">Confirmation</h1>';
+                echo 'Quote Successfully Updated.<br>';
+                echo '<a class="btn btn-success mt-3" href="http://students.cs.niu.edu/~z1866716/manageQuotesHeader.php" role="button">Back to Unfinalized Quotes.</a>';
+                echo '</div>';
             }
-
-            // if the user checked the finalize quote checkbox, we set the quote to finalized in the database.
-            if(isset($_POST['finalizeCheckbox']))
-            {
-                $quoteID = $_POST["quoteID"];
-
-                // set this quote we are modifying to finalized:
-                $query = $pdo->prepare("UPDATE Quote SET Status = 'Finalized' WHERE Quote_Id = :quoteID"); 
-
-                $query->execute(array(":quoteID" => $quoteID));
-
-            }
-
+            catch(PDOexception $e){
+				// print the error message if we encounter an exception
+				echo "Error updating quote in database: " . $e->getMessage(); 
+			}
             
-
-
-
-            $deletedRows = explode(',', $_POST["deletedRows"]);
-            print_r($deletedRows);
-
-            for ($j = 0; $j < count($deletedRows) - 1; $j++)
-            {
-                echo 'DELETING ROW '.$deletedRows[$j].'<br>';
-
-                // delete the row
-                $query = $pdo->prepare("DELETE FROM Quote_Descript WHERE Descrip_Id = :descrID"); 
-
-                $query->execute(array(":descrID" => $deletedRows[$j]));
-            }
-            
-            $sNote = $_POST["snotes"];
-
-            // update quote notes after line item changes:
-            $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote WHERE Quote_Id = :quoteID"); 
-
-            $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
-
         ?>
 
-    </body>
+        
 
+    </body>
 </html>

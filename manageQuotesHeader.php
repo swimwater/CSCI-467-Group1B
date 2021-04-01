@@ -15,7 +15,7 @@
 	
 	<div class="container-fluid">
 		
-		<h1>Unfinalized Quotes</h1>
+		<h1 class="pt-2">Unfinalized Quotes</h1>
 
 		<!-- greet user -->
 		<p>Hello, {USERNAME}. Please choose an unfinalized quote to edit below.</p>
@@ -36,7 +36,7 @@
 				try{
 					include("credentials.php");
 
-					$userId = 4; // DEBUG - replace with logged on associate/user ID from session
+					$userId = 1; // DEBUG - replace with logged on associate/user ID from session
 
 					// connect to the quote/associate database
 					$dsn = "mysql:host=courses;dbname=z1866716";
