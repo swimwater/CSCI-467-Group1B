@@ -15,19 +15,19 @@
 	
 	<div class="container-fluid">
 		
-		<h1>Manage Unfinalized Quotes</h1>
+		<h1>Unfinalized Quotes</h1>
 
 		<!-- greet user -->
-		<p>Hello, {USERNAME}. Please choose a quote to edit below.</p>
+		<p>Hello, {USERNAME}. Please choose an unfinalized quote to edit below.</p>
 
 
-		<table class="mx-auto">
+		<table class="table table-bordered table-dark">
 			<!-- header row for unfinalized quotes table-->
 			<tr>
 				<th style="width: 15rem">Customer Name</th>
 				<th style="width: 15rem">Customer Contact</th>
 				<th style="width: 40rem">Notes</th>
-				<th style="width: 8rem">Quote</th>
+				<th style="width: 8rem">Edit</th>
 			</tr>
 
 			<!--- connect to db and get unfinalized quotes pertaining to this associate, put them into a table-->
@@ -78,7 +78,7 @@
 						echo '<input type="hidden" name="sNote" value="'.$quote["SNote"].'">';
 
 						// the button that will submit the form to the page where the user will edit the quote in detail.
-						$editButton = '<td><input type="submit" class="w-100" value="Edit Quote"/></td>';
+						$editButton = '<td><button type="submit" class="btn btn-success w-100">Edit</button></td>';
 
 						// print the table row with the quote button and information:
 						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</tr>';

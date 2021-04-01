@@ -24,7 +24,7 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             
             print_r($_POST);
-
+            
             for($i = 1; $i <= $_POST["numLineItems"]; $i++)
             {
                 echo '<p>LINE ITEM #'.$i.' ID = '.$_POST["lineItemID".$i].'</p>';
@@ -58,6 +58,22 @@
                     $query->execute(array(":price" => $price, ":descr" => $description, ":descrID" => $descrID));
                 }
             }
+
+            // if the user checked the finalize quote checkbox, we set the quote to finalized in the database.
+            if(isset($_POST['finalizeCheckbox']))
+            {
+                $quoteID = $_POST["quoteID"];
+
+                // set this quote we are modifying to finalized:
+                $query = $pdo->prepare("UPDATE Quote SET Status = 'Finalized' WHERE Quote_Id = :quoteID"); 
+
+                $query->execute(array(":quoteID" => $quoteID));
+
+            }
+
+            
+
+
 
             $deletedRows = explode(',', $_POST["deletedRows"]);
             print_r($deletedRows);
