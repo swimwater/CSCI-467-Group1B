@@ -49,6 +49,9 @@
     <h1>TRANSFER QUOTE RECORDS TO OTHER ASSOCIATES</h1>
 
     <br>
+
+    <p class="MYP" id="FROM">FROM:</p>
+    <p class="MYP" id="TO">TO:</p>
 </body>
 
 <?php
@@ -101,12 +104,12 @@
   if ($result == false){echo "Failed to access Plant Repair database";}
 ?>
   <form action="" method="POST" id="AssoForm">
-    <select id="Asso1" name="Asso1" onchange="submit()">
+    <select id="Asso1" class="CUSTOMSELECT" name="Asso1" onchange="submit()">
       <?php while ($AssocInfo = $result2->fetch()):?>
         <option <?php if (isset($User_Id)){if ($User_Id == $AssocInfo['User_Id']) {echo "selected";}} else if (isset($first)){ if ($first == $AssocInfo['User_Id']) {echo "selected";}}?> value=<?php echo "\"".$AssocInfo['User_Id']."\"";?>><?php echo $AssocInfo['User_Id'].": ".$AssocInfo['Name'];?></option>
       <?php endwhile;?>
     </select>
-    <select id="Asso2" name="Asso2" onchange="submit()">
+    <select id="Asso2" class="CUSTOMSELECT" name="Asso2" onchange="submit()">
       <?php while ($AssocInfo2 = $result3->fetch()):?>
         <option <?php if (isset($User_Id2)){if ($User_Id2 == $AssocInfo2['User_Id']) {echo "selected";}} ?> value=<?php echo "\"".$AssocInfo2['User_Id']."\"";?>><?php echo $AssocInfo2['User_Id'].": ".$AssocInfo2['Name'];?></option>
       <?php endwhile;?>
@@ -144,16 +147,15 @@
         </td>
       </tr>
     <?php endwhile;?>
-    <tr>
-      <th>Submit:</th>
-      <td colspan="5">
+
         <input type="hidden" name="From" value = <?php if (isset($User_Id)){echo "\"".$User_Id."\"";} else if (isset($first)){echo "\"".$first."\"";} ?>/>
         <input type="hidden" name="To" value = <?php echo "\"".$Id2."\"";?>/>
-        <input type="submit" name="Transfer Quotes" value="Transfer"/>
-      </td>
-    <tr>
+        <input type="submit" class="SUBMIT" name="Transfer Quotes" value="Transfer"/>
+
   </table>
 </form>
+
+
 </html>
 
 <script>

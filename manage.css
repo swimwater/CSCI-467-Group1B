@@ -5,14 +5,14 @@
     font-family: sans-serif;
     box-sizing: border-box;
 }
-body
+body                                /*   BACKGROUND   */
 {
     height: 50vh;
     display: grid;
     place-items: center;
     background: #34495e;
 }
-table
+table                               /*   ALL FOR THE TABLE, UNTIL WE REACH h1   */
 {
     width: 1000px;
 
@@ -45,13 +45,17 @@ tr:nth-child(even)
     background-color:white;
     color:black;
 }
-h1{
+
+
+
+
+h1{                                 /*  HEADER    */
     color:white;
     text-transform: uppercase;
     font-weight: 500;
     padding:12px;
 }
-.mybutton
+.mybutton               /* CLASS FOR BUTTONS. EDIT BUTTON HAS THESE EXACT VALUES     */
 {
    width:20%;
    background: #2ecc71;
@@ -62,7 +66,7 @@ h1{
    height: 40px;
    width: 100px;
 }
-#ADD-BUTTON
+#ADD-BUTTON                     /* ADD BUTTON     */
 {
     background: cornflowerblue;
     position:relative;
@@ -71,7 +75,7 @@ h1{
     width: 100px;
     border: 2px solid cornflowerblue;
 }
-#ADD-BUTTON:focus
+#ADD-BUTTON:focus           /*   ADD BUTTON ANIMATION    */
 {
     width: 250px;
     border-radius: 24px;
@@ -79,9 +83,60 @@ h1{
     cursor: pointer;
 }
 
-#DELETE
+#DELETE                     /*  DELETE BUTTON     */
 {
     background:red;
+}
+
+
+.SUBMIT               /* CLASS FOR TRANSFER SUBMIT BUTTON     */
+{
+   width:20%;
+   background:#2ecc71;
+   color:white;
+   border: 0;
+   padding:10px;
+   border-radius:1px;
+   height: 40px;
+   width: 528px;
+   position:relative;
+   left:250px;
+   
+}
+.CUSTOMSELECT
+{
+    margin-top: 20px;
+    padding:5px;
+    background:black;
+    margin-bottom: 20px;
+    color:white;
+    
+}
+
+#Asso1
+{
+    margin-right:20px;
+    background:white;
+    color:black;
+    
+}
+
+.MYP
+{
+    color:white;
+}
+
+#FROM
+{
+    position:relative;
+    left:-150px;
+    top:80px;
+}
+#TO
+{
+    position:relative;
+    left:27px;
+    top:40px;
 }
 
 
