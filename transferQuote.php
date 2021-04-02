@@ -29,8 +29,11 @@
         <li class="nav-item">
             <a class="nav-link" href="views.php">View Quotes</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="manage.php">Manage Associate Records</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="transferQuote.php">Transfer Quotes</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>
