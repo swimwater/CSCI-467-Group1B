@@ -92,7 +92,7 @@
 
       <form id="add" action=edit.php method="POST">
           <input type="hidden" name="Add" value = "Add"/>
-          <input type="submit" class="mybutton" value="Add" id = "button"/>
+          <input type="submit" class="mybutton" value="Add" id = "ADD-BUTTON"/>
       </form>
   </table>
 </div>
