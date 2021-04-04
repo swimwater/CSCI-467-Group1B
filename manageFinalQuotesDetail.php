@@ -20,7 +20,7 @@
 		<!-- button for adding line items -->
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
 
-		<form action="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesUpdateDB.php" method="POST">
+		<form action="http://students.cs.niu.edu/~z1866716/manageFinalQuotesUpdateDB.php" method="POST">
 
 		<!-- line item table-->
 		<table class="table table-bordered table-dark" id="lineItemTable">
@@ -83,17 +83,28 @@
 				echo "Error obtaining or processing quote details: " . $e->getMessage(); 
 			}
 			?>
-
-		<div class="form-check pb-3">
-		<label class="form-check-label">
-			<input type="checkbox" class="form-check-input" name="finalizeCheckbox" value="">Finalize Quote
-		</label>
-		</div>
 		
+        <div class="form-group">
+            <label for="discountTypeDropdown">Discount Type:</label>
+            <select class="form-control text-light bg-dark w-25" id="discountTypeDropdown">
+            <option>Percentage</option>
+            <option>Dollar Amount</option>
+            </select>
+        </div>
+
+        <label for="quoteAmount" class="text-light">Discount Amount:</label>
+		<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" placeholder="Enter a discount percentage or amount here." value=""/><br>
+        
+		<div class="form-check pb-3">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="sanctionCheckbox" value="">Sanction Quote
+            </label>
+		</div>
+
 		<div class="row">
 
 		<!-- a back button to take the user back to the header view -->
-		<a class="btn btn-danger ml-2 mr-2" href="http://students.cs.niu.edu/~z1866716/manageQuotesHeader.php" role="button">Cancel</a>
+		<a class="btn btn-danger ml-2 mr-2" href="http://students.cs.niu.edu/~z1866716/manageFinalQuotesHeader.php" role="button">Cancel</a>
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
