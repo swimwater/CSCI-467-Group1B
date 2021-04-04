@@ -75,6 +75,12 @@
 						// hidden field containing secret quote notes. These notes will be posted to the following page where they are displayed for editing.
 						echo '<input type="hidden" name="sNote" value="'.$quote["SNote"].'">';
 
+                        // hidden field containing discount type. Will be posted to the following page.
+						echo '<input type="hidden" name="percentage" value="'.$quote["Percent"].'">';
+
+                        // hidden field containing secret quote notes. These notes will be posted to the following page where they are displayed for editing.
+						echo '<input type="hidden" name="discount" value="'.$quote["Discount"].'">';
+
 						// the button that will submit the form to the page where the user will edit the quote in detail.
 						$editButton = '<td><button type="submit" class="btn btn-success w-100">Edit</button></td>';
 
