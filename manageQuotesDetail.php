@@ -54,8 +54,8 @@
 					$n++; // increment the count of total line items present in the grid
 					
 					// create the form controls for each column in the grid row
-					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01"name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
+					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
@@ -113,18 +113,27 @@
 
 <script>
 
+var newestLineItemID;
 var rowID = 1;
 
 // dynamically add a line item to the line item table, adjusting the running total of line items
 function addLineItem() {
-
+	if(newestLineItemID != undefined)
+	{
+		if($("#description" + newestLineItemID)[0].value == "" || $("#price" + newestLineItemID)[0].value == "")
+		{
+			alert("Please fill out the description and price fields in the new line item before adding a new one.");
+			return;
+		}
+	}
+	
 	// retrieve and increment the number of line items in the grid
 	var numLineItems = $("#numLineItems").val();
 	numLineItems++;
 
 	// create line item fields, and removal button:
-	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01"name="price' + numLineItems + '" placeholder="0.00"/>';
+	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -143,6 +152,8 @@ function addLineItem() {
 	$("#" + numLineItems).append(idFieldHTML);
 	$("#" + numLineItems).append(deletedFieldHTML);
 
+	newestLineItemID = numLineItems;
+	
 	// set the number of line items equal to the new total.
 	$("#numLineItems").val(numLineItems);
 }
@@ -152,6 +163,9 @@ function removeLineItem(itemID) {
 	$("#deleted" + itemID).val("true"); // set deleted status to true
 
 	$("#" + itemID).css("display", "none"); // hide the line item to the user
+
+	//As we have removed the newest line item, clear the reference to the newest line item.
+	newestLineItemID = undefined;
 }
 
 </script>

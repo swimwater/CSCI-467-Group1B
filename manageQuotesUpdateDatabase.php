@@ -23,9 +23,6 @@
                 $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 
                 $quoteID = $_POST["quoteID"];
-                
-                print_r($_POST);
-                echo '<br>';
 
                 for($i = 1; $i <= $_POST["numLineItems"]; $i++)
                 {
@@ -34,7 +31,6 @@
                     
                     if($_POST["deleted".$i] == "true" && $_POST["lineItemID".$i] != "#")
                     {
-                        echo 'DELETING LINE ITEM '.$i.'<br>';
                         // the item is in the database and should be deleted. delete it:
                         $query = $pdo->prepare("DELETE FROM Quote_Descript WHERE Descrip_Id = :descrID"); 
 
@@ -42,7 +38,6 @@
                     }
                     else if($_POST["lineItemID".$i] == "#" && $_POST["deleted".$i] == "false")
                     {
-                        echo 'ADDING LINE ITEM <br>';
                         // the item is not in the database and should be added. add it as a new item:
                         $query = $pdo->prepare("INSERT INTO Quote_Descript (Quote_Id, Price, Descript) VALUES (:quoteId, :price, :descr)"); 
 
@@ -50,14 +45,13 @@
                     }
                     else if($_POST["lineItemID".$i] != "#" && $_POST["deleted".$i] == "false")
                     {
-                        echo 'UPDATING LINE ITEM <br>';
                         // the item already exists in the database and should be updated. update it based on its descriptor id:
                         $query = $pdo->prepare("UPDATE Quote_Descript SET Price = :price, Descript = :descr WHERE Descrip_Id = :descrID"); 
 
                         $query->execute(array(":price" => $price, ":descr" => $description, ":descrID" => $_POST["lineItemID".$i]));
                     }
                 }
-                
+
                 $sNote = $_POST["snotes"];
 
                 // update quote notes after line item changes:
