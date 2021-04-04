@@ -32,6 +32,8 @@
 			</tr>
 
 			<?php
+            print_r($_POST);
+            echo '<br>';
 			try{
 				// connect to the database
 				include("credentials.php");
@@ -77,6 +79,35 @@
 				echo '<label for="snotes" class="text-light">Edit notes for quote:</label>';
 				echo '<input type="text" class="form-control text-light bg-dark w-25" id="snotes" name="snotes" value="'.$_POST["sNote"].'"/><br>';
 
+                echo '<div class="form-group">
+                        <label for="discountTypeDropdown">Discount Type:</label>
+                        <select class="form-control text-light bg-dark w-25" id="discountTypeDropdown" value="Dollar Amount">';
+                
+                if($_POST['percent'] == 0)
+                {
+                    echo '<option value="Percentage">Percentage</option>
+                    <option selected value="Dollar Amount">Dollar Amount</option>
+                    </select>
+                </div>';
+                }
+                else
+                {
+                    echo '<option value="Percentage">Percentage</option>
+                    <option value="Dollar Amount">Dollar Amount</option>
+                    </select>
+                </div>';
+                }
+
+                echo '<label for="quoteAmount" class="text-light">Discount Amount:</label>';
+
+                if($_POST['discount'] != "")
+                {
+                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" value="'.$_POST['discount'].'"/><br>';
+                }
+                else
+                {
+                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" placeholder="Enter a discount percentage or amount here." value=""/><br>';
+                }
 			}
 			catch(PDOexception $e){
 				// print the error message if we encounter an exception
@@ -84,17 +115,6 @@
 			}
 			?>
 		
-        <div class="form-group">
-            <label for="discountTypeDropdown">Discount Type:</label>
-            <select class="form-control text-light bg-dark w-25" id="discountTypeDropdown">
-            <option>Percentage</option>
-            <option>Dollar Amount</option>
-            </select>
-        </div>
-
-        <label for="quoteAmount" class="text-light">Discount Amount:</label>
-		<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" placeholder="Enter a discount percentage or amount here." value=""/><br>
-        
 		<div class="form-check pb-3">
             <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" name="sanctionCheckbox" value="">Sanction Quote
