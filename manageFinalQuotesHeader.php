@@ -15,14 +15,14 @@
 	
 	<div class="container-fluid">
 		
-		<h1 class="pt-2">Unfinalized Quotes</h1>
+		<h1 class="pt-2">Finalized Quotes</h1>
 
 		<!-- greet user -->
-		<p>Hello, {USERNAME}. Please choose an unfinalized quote to edit below.</p>
+		<p>Hello, {USERNAME}. Please choose a finalized quote to edit below.</p>
 
 
 		<table class="table table-bordered table-dark">
-			<!-- header row for unfinalized quotes table-->
+			<!-- header row for finalized quotes table-->
 			<tr>
 				<th style="width: 15rem">Customer Name</th>
 				<th style="width: 15rem">Customer Contact</th>
@@ -30,13 +30,11 @@
 				<th style="width: 8rem">Edit</th>
 			</tr>
 
-			<!--- connect to db and get unfinalized quotes pertaining to this associate, put them into a table-->
+			<!--- connect to db and get finalized quotes, put them into a table-->
 			<?php
 
 				try{
 					include("credentials.php");
-
-					$userId = 1; // DEBUG - replace with logged on associate/user ID from session
 
 					// connect to the quote/associate database
 					$dsn = "mysql:host=courses;dbname=z1866716";
@@ -46,11 +44,11 @@
 					$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 					// get all unfinalized quotes that have this user associated with them.
-					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Unfinalized' AND User_Id=:userID"); 
+					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Finalized'"); 
 
-					$query->execute(array(":userID" => $userId));
+					$query->execute();
 		
-					$unfinalizedQuotes = $query->fetchAll(PDO::FETCH_ASSOC);
+					$finalizedQuotes = $query->fetchAll(PDO::FETCH_ASSOC);
 					
 					// connect to the legacy database containing customer information
 
@@ -60,7 +58,7 @@
 	
 					$legacyPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-					foreach($unfinalizedQuotes as $quote)
+					foreach($finalizedQuotes as $quote)
 					{
 						// get the customer information pertaining to this quote we're displaying
 						$customerQuery = $legacyPdo->prepare("SELECT * FROM customers WHERE id=:customerId"); 
@@ -69,7 +67,7 @@
 
 						$customerData = $customerQuery->fetchAll(PDO::FETCH_ASSOC)[0];
 
-						echo '<form action="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesDetail.php" method="POST">';
+						echo '<form action="http://students.cs.niu.edu/~z1866716/manageFinalQuotesDetail.php" method="POST">';
 
 						// hidden field containing quote ID. This will be posted to the detail page, allowing us to find the quote's line items.
 						echo '<input type="hidden" name="quoteID" value="'.$quote["Quote_Id"].'">';
@@ -83,7 +81,7 @@
 						// print the table row with the quote button and information:
 						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</tr>';
 
-						echo "</form>";	
+						echo "</form>";
 					}
 
 				}

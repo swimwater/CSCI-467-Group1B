@@ -55,11 +55,11 @@
                 $sNote = $_POST["snotes"];
 
                 // update quote notes after line item changes:
-                // if the user checked the finalize quote checkbox, we set the quote to finalized in the database.
-                if(isset($_POST['finalizeCheckbox']))
+                // if the user checked the sanction quote checkbox, we set the quote to sanctioned in the database.
+                if(isset($_POST['sanctionCheckbox']))
                 {
                     // set this quote we are modifying to finalized:
-                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Status = 'Finalized' WHERE Quote_Id = :quoteID"); 
+                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Status = 'Sanctioned' WHERE Quote_Id = :quoteID"); 
 
                     $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
 
@@ -74,7 +74,7 @@
                 echo '<div class="container-fluid">';
                 echo '<h1 class="pt-2">Confirmation</h1>';
                 echo 'Quote Successfully Updated.<br>';
-                echo '<a class="btn btn-success mt-3" href="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesHeader.php" role="button">Back to Unfinalized Quotes.</a>';
+                echo '<a class="btn btn-success mt-3" href="http://students.cs.niu.edu/~z1866716/manageFinalQuotesHeader.php" role="button">Back to Finalized Quotes.</a>';
                 echo '</div>';
             }
             catch(PDOexception $e){
