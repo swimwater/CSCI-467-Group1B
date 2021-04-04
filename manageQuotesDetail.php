@@ -21,9 +21,6 @@
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
 
 		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
-		
-		<!-- create a hidden field to pass along deleted rows -->
-		<input type="hidden" id="deletedRows" name="deletedRows" value="">
 
 		<!-- line item table-->
 		<table class="table table-bordered table-dark" id="lineItemTable">
@@ -57,12 +54,15 @@
 					$n++; // increment the count of total line items present in the grid
 					
 					// create the form controls for each column in the grid row
-					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01"name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
+					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
 					echo '<input type="hidden" id="lineItemID'.$n.'" name="lineItemID'.$n.'" value="'.$lineItem['Descrip_Id'].'">';
+
+					// add a hidden field containing whether the row is deleted.
+					echo '<input type="hidden" id="deleted'.$n.'" name="deleted'.$n.'" value="false">';
 
 					// add the table row to the page
 					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceField.'</td><td>'.$removeButton.'</td></tr>';
@@ -113,18 +113,27 @@
 
 <script>
 
+var newestLineItemID;
 var rowID = 1;
 
 // dynamically add a line item to the line item table, adjusting the running total of line items
 function addLineItem() {
-
+	if(newestLineItemID != undefined)
+	{
+		if($("#description" + newestLineItemID)[0].value == "" || $("#price" + newestLineItemID)[0].value == "")
+		{
+			alert("Please fill out the description and price fields in the new line item before adding a new one.");
+			return;
+		}
+	}
+	
 	// retrieve and increment the number of line items in the grid
 	var numLineItems = $("#numLineItems").val();
 	numLineItems++;
 
 	// create line item fields, and removal button:
-	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01"name="price' + numLineItems + '" placeholder="0.00"/>';
+	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -133,31 +142,30 @@ function addLineItem() {
 	//create an id field for the new line item containing #, so the confirmation page knows this is a new line item and does not already exist in the database.
 	var idFieldHTML = '<input type="hidden" id="lineItemID' + numLineItems + '" name="lineItemID' + numLineItems + '" value="#">';
 
+	// add a hidden field containing whether the row is deleted.
+	var deletedFieldHTML = '<input type="hidden" id="deleted' + numLineItems + '" name="deleted' + numLineItems + '" value="false">';
+
 	// append the row to the line item table.
 	$("#lineItemTable").append(newLineItemHTML);
 
-	// append the id field to the new row.
+	// append the id and deleted fields to the new row.
 	$("#" + numLineItems).append(idFieldHTML);
+	$("#" + numLineItems).append(deletedFieldHTML);
 
+	newestLineItemID = numLineItems;
+	
 	// set the number of line items equal to the new total.
 	$("#numLineItems").val(numLineItems);
 }
 
 // removes a line item from the table, causing it to not be added or be removed from the existing quote.
 function removeLineItem(itemID) {
+	$("#deleted" + itemID).val("true"); // set deleted status to true
 
-	//update the list of deleted rows with this line item if it already exists in the database:
-	if($("#lineItemID" + itemID).val() != "#")
-	{
-		var deletedRows = $("#deletedRows").val();
-		$("#deletedRows").val(deletedRows + $("#lineItemID" + itemID).val() + ",");
-	}
+	$("#" + itemID).css("display", "none"); // hide the line item to the user
 
-	$("#" + itemID).remove(); // delete the line item
-	
-	// update the running total
-	var numLineItems = $("#numLineItems").val() - 1;
-	$("#numLineItems").val(numLineItems);
+	//As we have removed the newest line item, clear the reference to the newest line item.
+	newestLineItemID = undefined;
 }
 
 </script>
