@@ -20,7 +20,7 @@
 		<!-- button for adding line items -->
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
 
-		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
+		<form action="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesUpdateDB.php" method="POST">
 
 		<!-- line item table-->
 		<table class="table table-bordered table-dark" id="lineItemTable">

@@ -74,7 +74,7 @@
                 echo '<div class="container-fluid">';
                 echo '<h1 class="pt-2">Confirmation</h1>';
                 echo 'Quote Successfully Updated.<br>';
-                echo '<a class="btn btn-success mt-3" href="http://students.cs.niu.edu/~z1866716/manageQuotesHeader.php" role="button">Back to Unfinalized Quotes.</a>';
+                echo '<a class="btn btn-success mt-3" href="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesHeader.php" role="button">Back to Unfinalized Quotes.</a>';
                 echo '</div>';
             }
             catch(PDOexception $e){
