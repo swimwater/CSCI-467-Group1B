@@ -1,4 +1,4 @@
-<!--- manage unfinalized quotes --->
+<!--- manage finalized quotes --->
 
 <html>
 	<head> 
@@ -69,7 +69,7 @@
 
 						$customerData = $customerQuery->fetchAll(PDO::FETCH_ASSOC)[0];
 
-						echo '<form action="http://students.cs.niu.edu/~z1866716/manageQuotesDetail.php" method="POST">';
+						echo '<form action="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesDetail.php" method="POST">';
 
 						// hidden field containing quote ID. This will be posted to the detail page, allowing us to find the quote's line items.
 						echo '<input type="hidden" name="quoteID" value="'.$quote["Quote_Id"].'">';
