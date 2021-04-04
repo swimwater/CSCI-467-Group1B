@@ -24,6 +24,8 @@ create table Quote(
     SNote     VARCHAR(1000),
     Status    CHAR(11)       NOT NULL DEFAULT "Unfinalized",
     Date      DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Discount  DECIMAL(15,2),
+    Percent   BOOLEAN,
 
     foreign key(User_Id) references Associate(User_Id)
 );
