@@ -21,9 +21,6 @@
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
 
 		<form action="http://students.cs.niu.edu/~z1866716/manageQuotesUpdateDatabase.php" method="POST">
-		
-		<!-- create a hidden field to pass along deleted rows -->
-		<input type="hidden" id="deletedRows" name="deletedRows" value="">
 
 		<!-- line item table-->
 		<table class="table table-bordered table-dark" id="lineItemTable">
@@ -63,6 +60,9 @@
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
 					echo '<input type="hidden" id="lineItemID'.$n.'" name="lineItemID'.$n.'" value="'.$lineItem['Descrip_Id'].'">';
+
+					// add a hidden field containing whether the row is deleted.
+					echo '<input type="hidden" id="deleted'.$n.'" name="deleted'.$n.'" value="false">';
 
 					// add the table row to the page
 					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceField.'</td><td>'.$removeButton.'</td></tr>';
@@ -133,11 +133,15 @@ function addLineItem() {
 	//create an id field for the new line item containing #, so the confirmation page knows this is a new line item and does not already exist in the database.
 	var idFieldHTML = '<input type="hidden" id="lineItemID' + numLineItems + '" name="lineItemID' + numLineItems + '" value="#">';
 
+	// add a hidden field containing whether the row is deleted.
+	var deletedFieldHTML = '<input type="hidden" id="deleted' + numLineItems + '" name="deleted' + numLineItems + '" value="false">';
+
 	// append the row to the line item table.
 	$("#lineItemTable").append(newLineItemHTML);
 
-	// append the id field to the new row.
+	// append the id and deleted fields to the new row.
 	$("#" + numLineItems).append(idFieldHTML);
+	$("#" + numLineItems).append(deletedFieldHTML);
 
 	// set the number of line items equal to the new total.
 	$("#numLineItems").val(numLineItems);
@@ -145,19 +149,9 @@ function addLineItem() {
 
 // removes a line item from the table, causing it to not be added or be removed from the existing quote.
 function removeLineItem(itemID) {
+	$("#deleted" + itemID).val("true"); // set deleted status to true
 
-	//update the list of deleted rows with this line item if it already exists in the database:
-	if($("#lineItemID" + itemID).val() != "#")
-	{
-		var deletedRows = $("#deletedRows").val();
-		$("#deletedRows").val(deletedRows + $("#lineItemID" + itemID).val() + ",");
-	}
-
-	$("#" + itemID).remove(); // delete the line item
-	
-	// update the running total
-	var numLineItems = $("#numLineItems").val() - 1;
-	$("#numLineItems").val(numLineItems);
+	$("#" + itemID).css("display", "none"); // hide the line item to the user
 }
 
 </script>
