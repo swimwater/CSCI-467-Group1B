@@ -82,22 +82,22 @@
  ?>
 
  <form action="views.php" method="POST">
-   <input type="checkbox" id="final" name="final" value="Finalized" checked>
-   <label for="final">Finalized</label><br>
-   <input type="checkbox" id="sanc" name="sanc" value="Sanctioned" checked>
-   <label for="sanc">Sanctioned</label><br>
-   <input type="checkbox" id="order" name="order" value="Ordered" checked>
-   <label for="order">Ordered</label><br>
+   <input type="checkbox" class="MYCHECKBOX" id="final" name="final" value="Finalized" checked>
+   <label class="CHECKLABEL" for="final">Finalized</label><br>
+   <input type="checkbox" class="MYCHECKBOX" id="sanc" name="sanc" value="Sanctioned" checked>
+   <label class="CHECKLABEL" for="sanc">Sanctioned</label><br>
+   <input type="checkbox" class="MYCHECKBOX" id="order" name="order" value="Ordered" checked>
+   <label class="CHECKLABEL" for="order">Ordered</label><br>
 
-   <label for="start">Start date:</label>
-   <input type="date" id="start" name="day1" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required>
+   <label class="DATELABEL" id="STARTLABEL" for="start">Start date:</label>
+   <input class="DATE"type="date" id="start" name="day1" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required>
 
-   <label for="end">End date:</label>
-   <input type="date" id="end" name="day2" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required><br>
+   <label class="DATELABEL" id="ENDLABEL" for="end">End date:</label>
+   <input class="DATE" type="date" id="end" name="day2" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required><br>
 
-   <input type="text" name="sAsso" placeholder="Search by Sales Associate"/><br>
-   <input type="text" name="sCust" placeholder="Search by Customer"/><br>
-   <input type="submit" name="search" value="Search"/><br>
+   <input type="text" class="CUSTOMINPUT" id="ASSOC" name="sAsso" placeholder="Search by Sales Associate"/><br>
+   <input type="text" class="CUSTOMINPUT" id="CUST" name="sCust" placeholder="Search by Customer"/><br>
+   <input type="submit" class="CUSTOMSUBMIT" name="search" value="Search"/><br>
  </form>
 
  <?php

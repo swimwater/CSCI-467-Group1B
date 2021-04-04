@@ -52,3 +52,79 @@ h1{
     font-weight: 500;
     padding:12px;
 }
+.MYCHECKBOX
+{
+    color:white;
+    position:relative;
+    left:200px;
+}
+.CHECKLABEL
+{
+    color:white;
+    position:relative;
+    left:210px;
+}
+.DATE                       /*  CLASS FOR DATE INPUT BOXES  */
+{
+    margin-top: 20px;
+    position:relative;
+    color:black;
+    background:white;
+
+}
+#start
+{
+    left:-60px;
+}
+#end
+{
+    left:20px;
+    background:black;
+    color:white;
+   
+}
+
+.DATELABEL                  /* CLASS FOR DATE LABELS   */
+{
+    color:white;
+    position:relative;
+    top:-25px;
+}
+#STARTLABEL
+{
+    left:30px;
+
+}
+#ENDLABEL
+{
+    left:102px;
+}
+.CUSTOMINPUT                /* CLASS FOR INPUT BOXES */
+{
+    position:relative;
+    left:130px;
+}
+#ASSOC
+{
+    background:coral;
+    color:black;
+}
+#CUST
+{
+    background:deepskyblue;
+    color:black;
+}
+.CUSTOMSUBMIT
+{
+   margin-top: 15px;
+   width:20%;
+   background:#2ecc71;
+   color:white;
+   border: 0;
+   padding:10px;
+   border-radius:1px;
+   height: 40px;
+   width: 210px;
+   position:relative;
+   left:145px;
+}
