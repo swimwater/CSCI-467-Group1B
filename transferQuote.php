@@ -65,14 +65,14 @@
 
   if (isset($_POST['Asso1']))
   {
-    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    $getQuoteRecord = "select Associate.User_Id, Name, Pos, Quote_Id, Status from Associate, Quote
     where Associate.User_Id = ".$_POST['Asso1']." and Quote.User_Id = ".$_POST['Asso1'].";";
     $User_Id = $_POST['Asso1'];
     $User_Id2 = $_POST['Asso2'];
   }
   else if (isset($_SESSION['User_Id']))
   {
-    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    $getQuoteRecord = "select Associate.User_Id, Name, Pos, Quote_Id, Status from Associate, Quote
     where Associate.User_Id = ".$_SESSION['User_Id']." and Quote.User_Id = ".$_SESSION['User_Id'].";";
     $User_Id = $_SESSION['User_Id'];
 
@@ -97,7 +97,7 @@
     $getFirst = $get1->fetch();
     $first = $getFirst['User_Id'];
 
-    $getQuoteRecord = "select Associate.User_Id, Name, Admin, Quote_Id, Status from Associate, Quote
+    $getQuoteRecord = "select Associate.User_Id, Name, Pos, Quote_Id, Status from Associate, Quote
     where Associate.User_Id = ".$first." and Quote.User_Id = ".$first.";";
   }
   $result = $pdo->query($getQuoteRecord);
@@ -118,12 +118,12 @@
 
   <?php
     if (isset($User_Id2)) {$Id2 = $User_Id2;} else {$Id2 = $first;}
-    $getA2Name = "select Name, Admin from Associate where User_Id = ".$Id2.";";
+    $getA2Name = "select Name, Pos from Associate where User_Id = ".$Id2.";";
     $result4 = $pdo->query($getA2Name);
     if ($result4 == false){echo "Failed to access Plant Repair database";}
     $A2Name = $result4->fetch();
     $Name2 = $A2Name['Name'];
-    $Pos2 = $A2Name['Admin'];
+    $Pos2 = $A2Name['Pos'];
   ?>
 <form action = "processTransfer.php" method = "POST">
   <table>
@@ -138,10 +138,10 @@
     <?php while ($QuoteInfo = $result->fetch()):?>
       <tr>
         <td><?php echo $QuoteInfo['Name'];?></td>
-        <td><?php if ($QuoteInfo['Admin'] == 1) {echo "Administrator";} else {echo "Associate";}?></td>
+        <td><?php if ($QuoteInfo['Pos'] == 2) {echo "Administrator";} else if ($QuoteInfo['Pos'] == 1) {echo "Employee";} else {echo "Associate";}?></td>
         <td><?php echo $QuoteInfo['Quote_Id'];?></td>
         <td><?php echo $Name2;?></td>
-        <td><?php if ($Pos2 == 1) {echo "Administrator";} else {echo "Associate";}?></td>
+        <td><?php if ($Pos2 == 2) {echo "Administrator";} else if ($Pos2 == 1) {echo "Employee";} else {echo "Associate";}?></td>
         <td>
           <input type="checkbox" name='QId[]' value=<?php echo "\"".$QuoteInfo['Quote_Id']."\"";?>>
         </td>

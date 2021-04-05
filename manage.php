@@ -74,7 +74,7 @@
       <td><?php echo $info['Password'];?></td>
       <td><?php echo $info['Accu_Com'];?></td>
       <td><?php echo $info['Address'];?></td>
-      <td><?php if ($info['Admin'] == 1) {echo "Administrator";} else {echo "Associate";}?></td>
+      <td><?php if ($info['Pos'] == 2) {echo "Administrator";} else if ($info['Pos'] == 1) {echo "Employee";} else {echo "Associate";}?></td>
       <td>
         <form id="edit" action=edit.php method="POST">
             <input type="hidden" name="Associate" value = <?php echo "\"".$info['User_Id']."\"";?>/>
