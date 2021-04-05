@@ -19,7 +19,7 @@
                 $id = $_POST['user_id'] ;
                 $pswd = $_POST['password'] ;
 
-                $sql = ("SELECT * FROM Associate WHERE Associate.User_Id = $id AND Associate.Password = '$pswd' AND Associate.Admin = 1 ;") ;
+                $sql = ("SELECT * FROM Associate WHERE Associate.User_Id = $id AND Associate.Password = '$pswd' AND Associate.Pos = 2 ;") ;
                 $login_query = $pdo->query($sql);
 
                 $rows = $login_query->fetch(PDO::FETCH_ASSOC);
