@@ -46,7 +46,7 @@
     <?php
       if (isset($_POST['Edit']))
       {
-        $getAssociateInfo = "select Name, Password, Accu_Com, Address, Admin from Associate where User_Id = ".$_POST['Associate'].";";
+        $getAssociateInfo = "select Name, Password, Accu_Com, Address, Pos from Associate where User_Id = ".$_POST['Associate'].";";
         $result = $pdo->query($getAssociateInfo);
         if ($result == false){echo "Failed to access Associate database";}
         $info = $result->fetch();
@@ -55,7 +55,7 @@
         $pass = $info['Password'];
         $com = $info['Accu_Com'];
         $add = $info['Address'];
-        $adm =$info['Admin'];
+        $pos =$info['Pos'];
       }
       else
       {
@@ -63,7 +63,7 @@
         $pass = "";
         $com = "";
         $add = "";
-        $adm = "";
+        $pos = "";
       }
     ?>
     <div class = 'editAssociate'>
@@ -96,9 +96,11 @@
           <tr>
             <th>Position:</th>
             <td>
-              <input type="radio" id="Ad" name="Admin" value='1' <?php if ($adm == 1) {echo "checked";}?>/>
+              <input type="radio" id="Ad" name="Pos" value='1' <?php if ($pos == 2) {echo "checked";}?>/>
               <label for="Ad">Administrator</label><br>
-              <input type="radio" id="As" name="Admin" value='0' <?php if ($adm == 0) {echo "checked";} else if ($adm == "") {echo "checked";}?>/>
+              <input type="radio" id="Em" name="Pos" value='1' <?php if ($pos == 1) {echo "checked";}?>/>
+              <label for="Em">Employee</label><br>
+              <input type="radio" id="As" name="Pos" value='0' <?php if ($pos == 0) {echo "checked";} else if ($pos == "") {echo "checked";}?>/>
               <label for="As">Associate</label><br>
             </td>
           </tr>

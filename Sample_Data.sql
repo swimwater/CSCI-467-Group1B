@@ -1,23 +1,23 @@
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('Admin', 'Test123', 1000.20, '1425 W. Lincoln Hwy. DeKalb, IL 60115-2828', 1);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('Admin', 'Test123', 1000.20, '1425 W. Lincoln Hwy. DeKalb, IL 60115-2828', 2);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
   values ('Normal', 'Test321', 50.00, '4321 N. Normal Rd Dekalb, IL 60115', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('Jesus', 'BibleStudy', 72365.78, 'Heaven Dr, Green Bay, WI 54311', 1);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('Normal', 'Alphabet', 192873.18, 'Northwestern University, 633 Clark St, Evanston, IL 60208', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('Jesus', 'BibleStudy', 72365.78, 'Heaven Dr, Green Bay, WI 54311', 2);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('Normal', 'Alphabet', 192873.18, 'Northwestern University, 633 Clark St, Evanston, IL 60208', 1);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
   values ('Rocks', 'Geologist', 93458.33, 'Stonehenge, Salisbury SP4 7DE, United Kingdom', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
   values ('Aliens', 'Pyramid', 283749.89, 'The Great Pyramid of Giza, Al Haram, Nazlet El-Semman, Al Giza Desert, Giza Governorate, Egypt', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('BassProShop', 'Illuminati', 128736182.12, 'Bass Pro Shops at the Pyramid, 1 Bass Pro Dr, Memphis, TN 38105', 1);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('Deep', 'Sea', 1902.17, 'Mariana Trench', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('BassProShop', 'Illuminati', 128736182.12, 'Bass Pro Shops at the Pyramid, 1 Bass Pro Dr, Memphis, TN 38105', 2);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('Deep', 'Sea', 1902.17, 'Mariana Trench', 1);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
   values ('Godzilla', 'Mothra', 192323.62, 'Tokyo Tower, 4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011, Japan', 0);
-insert into Associate (Name, Password, Accu_Com, Address, Admin)
-  values ('The Dead Sea', 'Salty', 0.00, 'Dead Sea', 0);
+insert into Associate (Name, Password, Accu_Com, Address, Pos)
+  values ('The Dead Sea', 'Salty', 0.00, 'Dead Sea', 1);
 
 
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)

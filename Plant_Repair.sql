@@ -14,7 +14,7 @@ create table Associate(
     Password VARCHAR(50)     NOT NULL,
     Accu_Com DECIMAL(15,2)   NOT NULL,
     Address  VARCHAR(100)    NOT NULL,
-    Admin    BOOLEAN         NOT NULL
+    Pos      INT             NOT NULL DEFAULT 0
 );
 
 create table Quote(
