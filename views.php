@@ -83,14 +83,14 @@
 
  <form action="views.php" method="POST">
    <input type="checkbox" class="MYCHECKBOX" id="final" name="final" value="Finalized" checked>
-   <label class="CHECKLABEL" for="final">Finalized</label><br>
+   <label class="CHECKLABEL" id="FINAL" for="final">Finalized</label><br>
    <input type="checkbox" class="MYCHECKBOX" id="sanc" name="sanc" value="Sanctioned" checked>
-   <label class="CHECKLABEL" for="sanc">Sanctioned</label><br>
+   <label class="CHECKLABEL" id="SANC" for="sanc">Sanctioned</label><br>
    <input type="checkbox" class="MYCHECKBOX" id="order" name="order" value="Ordered" checked>
-   <label class="CHECKLABEL" for="order">Ordered</label><br>
+   <label class="CHECKLABEL" id="ORDER" for="order">Ordered</label><br>
 
    <label class="DATELABEL" id="STARTLABEL" for="start">Start date:</label>
-   <input class="DATE"type="date" id="start" name="day1" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required>
+   <input class="DATE"type="date" id="start" name="day1" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required></br>
 
    <label class="DATELABEL" id="ENDLABEL" for="end">End date:</label>
    <input class="DATE" type="date" id="end" name="day2" min="1995-01-01" value = <?php echo "\"".date("Y/m/d")."\"";?> required><br>
