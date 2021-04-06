@@ -44,6 +44,9 @@
 				$query = $pdo->prepare("SELECT * FROM Quote_Descript WHERE Quote_Id=:selectedQuoteID"); 
 				$query->execute(array(":selectedQuoteID" => $_POST["quoteID"]));
 				$quoteLineItems = $query->fetchAll(PDO::FETCH_ASSOC);
+
+				//track the total cost of all the line items.
+				$totalCost = 0;
 				
 				// create a hidden field to pass along quote id
 				echo '<input type="hidden" id="quoteID" name="quoteID" value="'.$_POST["quoteID"].'">';
@@ -67,6 +70,9 @@
 
 					// add the table row to the page
 					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceField.'</td><td>'.$removeButton.'</td></tr>';
+
+					//add the cost of this line item to calculation:
+					$totalCost = $totalCost + $lineItem["Price"];
 
 				}
 				echo '</table>';
@@ -101,6 +107,8 @@
 						<option value="Dollar Amount">Dollar Amount</option>
 						</select>
 						</div>';	
+
+						$totalCost = $totalCost - ($totalCost * $_POST['discount']); //take the percentage discount off the total cost.
 					}
 					else //if it is a dollar amount or unset,
 					{
@@ -112,12 +120,9 @@
 						<option selected value="Dollar Amount">Dollar Amount</option>
 						</select>
 						</div>';
-					}
-					echo '</div>';
 
-					echo '<div class="col-3">';
-                    echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
-					echo '<input type="number" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
+						$totalCost = $totalCost - $_POST['discount']; //subtract the discount from the total cost
+					}
 					echo '</div>';
                 }
                 else
@@ -132,16 +137,19 @@
 					</select>
 					</div>';
 					echo '</div>';
-					
-					echo '<div class="col-3">';
-					echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
-					echo '<input type="number" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
-					echo '</div>';
                 }
+				echo '<div class="col-3">';
+				echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
+				echo '<input type="number" min="0" step="0.01" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
+				echo '</div>';
 
 				echo '<div class="col-3"></div>';
 				echo '<div class="col-3"></div>';
 				echo '</div>';
+
+				echo '<h2>Quote Total:</h2>';
+				$formattedCost = number_format($totalCost, 2);
+				echo '<input class="form-control text-light bg-dark w-25 mb-3" type="text" value="$'.$formattedCost.'" readonly>';
 			}
 			catch(PDOexception $e){
 				// print the error message if we encounter an exception
