@@ -59,7 +59,7 @@
 					
 					// create the form controls for each column in the grid row
 					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'" onchange="calculateTotal()"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
@@ -102,7 +102,7 @@
 						//create type drop down with percentage selected:
 						echo '<div class="form-group">
 						<label for="discountTypeDropdown">Discount Type:</label>
-						<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 						<option value="Percentage">Percentage</option>
 						<option value="Dollar Amount">Dollar Amount</option>
 						</select>
@@ -115,7 +115,7 @@
 						//create type drop down with dollar amount selected:
 						echo '<div class="form-group">
 						<label for="discountTypeDropdown">Discount Type:</label>
-						<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 						<option value="Percentage">Percentage</option>
 						<option selected value="Dollar Amount">Dollar Amount</option>
 						</select>
@@ -131,7 +131,7 @@
 					//create type drop down with dollar amount selected:
 					echo '<div class="form-group">
 					<label for="discountTypeDropdown">Discount Type:</label>
-					<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+					<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 					<option value="Percentage">Percentage</option>
 					<option selected value="Dollar Amount">Dollar Amount</option>
 					</select>
@@ -140,7 +140,7 @@
                 }
 				echo '<div class="col-3">';
 				echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
-				echo '<input type="number" min="0" step="0.01" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
+				echo '<input type="number" min="0" step="0.01" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'" onchange="calculateTotal()"/><br>';
 				echo '</div>';
 
 				echo '<div class="col-3"></div>';
@@ -149,7 +149,7 @@
 
 				echo '<h2>Quote Total:</h2>';
 				$formattedCost = number_format($totalCost, 2);
-				echo '<input class="form-control text-light bg-dark w-25 mb-3" type="text" value="$'.$formattedCost.'" readonly>';
+				echo '<input class="form-control text-light bg-dark w-25 mb-3" id="quoteTotal" type="text" value="$'.$formattedCost.'" readonly>';
 			}
 			catch(PDOexception $e){
 				// print the error message if we encounter an exception
@@ -204,7 +204,7 @@ function addLineItem() {
 
 	// create line item fields, and removal button:
 	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00" onchange="calculateTotal()"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -237,6 +237,45 @@ function removeLineItem(itemID) {
 
 	//As we have removed the newest line item, clear the reference to the newest line item.
 	newestLineItemID = undefined;
+
+	calculateTotal(); //recalculate the total with the remaining line items.
+}
+
+function calculateTotal() {	
+	//total line items:
+	var totalCost = 0;
+
+	var numLineItems = $("#numLineItems").val();
+	var i;
+	for(i = 1; i <= numLineItems; i++)
+	{
+		//if the row has not been deleted, factor it in the calculation
+		if($("#deleted" + i).val() == "false")
+		{
+			totalCost = totalCost + parseFloat($("#price" + i).val())
+		}
+	}
+	alert(parseFloat($("#discountAmount").val()));
+	//apply discount:
+	if($("#discountTypeDropdown").val() == "Percentage" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
+	{
+		totalCost = totalCost - (totalCost * parseFloat($("#discountAmount").val()));
+	}
+	else if (!isNaN(parseFloat($("#discountAmount").val()))) //dollar amount
+	{
+		totalCost = totalCost - parseFloat($("#discountAmount").val());
+	}
+
+	if(totalCost < 0)
+	{
+		totalCost = 0;
+	}
+	
+	//format for US currency. SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
+	var formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalCost);
+
+	//display new total:
+	$("#quoteTotal").val(formattedTotal);
 }
 
 </script>
