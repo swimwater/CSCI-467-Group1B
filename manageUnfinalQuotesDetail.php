@@ -15,7 +15,7 @@
 
 	<div class="container-fluid">
 
-		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details</h1>	
+		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Finalize</h1>	
 
 		<!-- button for adding line items -->
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>

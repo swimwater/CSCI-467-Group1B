@@ -15,7 +15,7 @@
 
 	<div class="container-fluid">
 
-		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details</h1>	
+		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Sanction</h1>	
 
 		<!-- button for adding line items -->
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
@@ -32,7 +32,6 @@
 			</tr>
 
 			<?php
-            print_r($_POST);
             echo '<br>';
 			try{
 				// connect to the database
@@ -76,44 +75,79 @@
 				echo '<input type="hidden" id="numLineItems" name="numLineItems" value="'.$n.'">';
 
 				// allow the user to edit the note attached to this quote
+				echo '<div class="row">';
+				echo '<div class="col-3">';
 				echo '<label for="snotes" class="text-light">Edit notes for quote:</label>';
-				echo '<input type="text" class="form-control text-light bg-dark w-25" id="snotes" name="snotes" value="'.$_POST["sNote"].'"/><br>';
+				echo '<input type="text" class="form-control text-light bg-dark" id="snotes" name="snotes" value="'.$_POST["sNote"].'"/><br>';
+				echo '</div>';
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '</div>';
 
-                echo '<div class="form-group">
-                        <label for="discountTypeDropdown">Discount Type:</label>
-                        <select class="form-control text-light bg-dark w-25" id="discountTypeDropdown" value="Dollar Amount">';
-                
-                if($_POST['percent'] == 0)
-                {
-                    echo '<option value="Percentage">Percentage</option>
-                    <option selected value="Dollar Amount">Dollar Amount</option>
-                    </select>
-                </div>';
-                }
-                else
-                {
-                    echo '<option value="Percentage">Percentage</option>
-                    <option value="Dollar Amount">Dollar Amount</option>
-                    </select>
-                </div>';
-                }
-
-                echo '<label for="quoteAmount" class="text-light">Discount Amount:</label>';
+				echo '<div class="row">';
 
                 if($_POST['discount'] != "")
                 {
-                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" value="'.$_POST['discount'].'"/><br>';
+					echo '<div class="col-3">';
+					//discount is nonzero, so check what type of discount it is:
+					if($_POST['percentage'] == 1) //discount is a percent
+					{
+						//create type drop down with percentage selected:
+						echo '<div class="form-group">
+						<label for="discountTypeDropdown">Discount Type:</label>
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+						<option value="Percentage">Percentage</option>
+						<option value="Dollar Amount">Dollar Amount</option>
+						</select>
+						</div>';	
+					}
+					else //if it is a dollar amount or unset,
+					{
+						//create type drop down with dollar amount selected:
+						echo '<div class="form-group">
+						<label for="discountTypeDropdown">Discount Type:</label>
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+						<option value="Percentage">Percentage</option>
+						<option selected value="Dollar Amount">Dollar Amount</option>
+						</select>
+						</div>';
+					}
+					echo '</div>';
+
+					echo '<div class="col-3">';
+                    echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
+					echo '<input type="number" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
+					echo '</div>';
                 }
                 else
                 {
-                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" placeholder="Enter a discount percentage or amount here." value=""/><br>';
+					echo '<div class="col-3">';
+					//create type drop down with dollar amount selected:
+					echo '<div class="form-group">
+					<label for="discountTypeDropdown">Discount Type:</label>
+					<select class="form-control text-light bg-dark" id="discountTypeDropdown" value="Dollar Amount">
+					<option value="Percentage">Percentage</option>
+					<option selected value="Dollar Amount">Dollar Amount</option>
+					</select>
+					</div>';
+					echo '</div>';
+					
+					echo '<div class="col-3">';
+					echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
+					echo '<input type="number" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'"/><br>';
+					echo '</div>';
                 }
+
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '</div>';
 			}
 			catch(PDOexception $e){
 				// print the error message if we encounter an exception
-				echo "Error obtaining or processing quote details: " . $e->getMessage(); 
+				echo "Error obtaining or processing quote details: " . $e->getMessage();
 			}
-			?>
+		?>
 		
 		<div class="form-check pb-3">
             <label class="form-check-label">
@@ -128,8 +162,6 @@
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
-
-		
 
 		</div>
 
