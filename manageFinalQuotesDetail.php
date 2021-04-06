@@ -15,7 +15,7 @@
 
 	<div class="container-fluid">
 
-		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details</h1>	
+		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Sanction</h1>	
 
 		<!-- button for adding line items -->
 		<button class="btn btn-success mt-3 mb-3" onclick="addLineItem()">Add Line Item</button>
@@ -32,7 +32,6 @@
 			</tr>
 
 			<?php
-            print_r($_POST);
             echo '<br>';
 			try{
 				// connect to the database
@@ -45,6 +44,9 @@
 				$query = $pdo->prepare("SELECT * FROM Quote_Descript WHERE Quote_Id=:selectedQuoteID"); 
 				$query->execute(array(":selectedQuoteID" => $_POST["quoteID"]));
 				$quoteLineItems = $query->fetchAll(PDO::FETCH_ASSOC);
+
+				//track the total cost of all the line items.
+				$totalCost = 0;
 				
 				// create a hidden field to pass along quote id
 				echo '<input type="hidden" id="quoteID" name="quoteID" value="'.$_POST["quoteID"].'">';
@@ -57,7 +59,7 @@
 					
 					// create the form controls for each column in the grid row
 					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'" onchange="calculateTotal()"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
@@ -69,6 +71,9 @@
 					// add the table row to the page
 					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceField.'</td><td>'.$removeButton.'</td></tr>';
 
+					//add the cost of this line item to calculation:
+					$totalCost = $totalCost + $lineItem["Price"];
+
 				}
 				echo '</table>';
 
@@ -76,44 +81,81 @@
 				echo '<input type="hidden" id="numLineItems" name="numLineItems" value="'.$n.'">';
 
 				// allow the user to edit the note attached to this quote
+				echo '<div class="row">';
+				echo '<div class="col-3">';
 				echo '<label for="snotes" class="text-light">Edit notes for quote:</label>';
-				echo '<input type="text" class="form-control text-light bg-dark w-25" id="snotes" name="snotes" value="'.$_POST["sNote"].'"/><br>';
+				echo '<input type="text" class="form-control text-light bg-dark" id="snotes" name="snotes" value="'.$_POST["sNote"].'"/><br>';
+				echo '</div>';
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '</div>';
 
-                echo '<div class="form-group">
-                        <label for="discountTypeDropdown">Discount Type:</label>
-                        <select class="form-control text-light bg-dark w-25" id="discountTypeDropdown" value="Dollar Amount">';
-                
-                if($_POST['percent'] == 0)
-                {
-                    echo '<option value="Percentage">Percentage</option>
-                    <option selected value="Dollar Amount">Dollar Amount</option>
-                    </select>
-                </div>';
-                }
-                else
-                {
-                    echo '<option value="Percentage">Percentage</option>
-                    <option value="Dollar Amount">Dollar Amount</option>
-                    </select>
-                </div>';
-                }
-
-                echo '<label for="quoteAmount" class="text-light">Discount Amount:</label>';
+				echo '<div class="row">';
 
                 if($_POST['discount'] != "")
                 {
-                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" value="'.$_POST['discount'].'"/><br>';
+					echo '<div class="col-3">';
+					//discount is nonzero, so check what type of discount it is:
+					if($_POST['percentage'] == 1) //discount is a percent
+					{
+						//create type drop down with percentage selected:
+						echo '<div class="form-group">
+						<label for="discountTypeDropdown">Discount Type:</label>
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+						<option value="Percentage">Percentage</option>
+						<option value="Dollar Amount">Dollar Amount</option>
+						</select>
+						</div>';	
+
+						$totalCost = $totalCost - ($totalCost * $_POST['discount']); //take the percentage discount off the total cost.
+					}
+					else //if it is a dollar amount or unset,
+					{
+						//create type drop down with dollar amount selected:
+						echo '<div class="form-group">
+						<label for="discountTypeDropdown">Discount Type:</label>
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+						<option value="Percentage">Percentage</option>
+						<option selected value="Dollar Amount">Dollar Amount</option>
+						</select>
+						</div>';
+
+						$totalCost = $totalCost - $_POST['discount']; //subtract the discount from the total cost
+					}
+					echo '</div>';
                 }
                 else
                 {
-                    echo '<input type="number" class="form-control text-light bg-dark w-25" id="quoteAmount" name="quoteAmount" placeholder="Enter a discount percentage or amount here." value=""/><br>';
+					echo '<div class="col-3">';
+					//create type drop down with dollar amount selected:
+					echo '<div class="form-group">
+					<label for="discountTypeDropdown">Discount Type:</label>
+					<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+					<option value="Percentage">Percentage</option>
+					<option selected value="Dollar Amount">Dollar Amount</option>
+					</select>
+					</div>';
+					echo '</div>';
                 }
+				echo '<div class="col-3">';
+				echo '<label for="discountAmount" class="text-light">Discount Amount:</label>';
+				echo '<input type="number" min="0" step="0.01" class="form-control text-light bg-dark" id="discountAmount" name="discountAmount" value="'.$_POST['discount'].'" onchange="calculateTotal()"/><br>';
+				echo '</div>';
+
+				echo '<div class="col-3"></div>';
+				echo '<div class="col-3"></div>';
+				echo '</div>';
+
+				echo '<h2>Quote Total:</h2>';
+				$formattedCost = number_format($totalCost, 2);
+				echo '<input class="form-control text-light bg-dark w-25 mb-3" id="quoteTotal" type="text" value="$'.$formattedCost.'" readonly>';
 			}
 			catch(PDOexception $e){
 				// print the error message if we encounter an exception
-				echo "Error obtaining or processing quote details: " . $e->getMessage(); 
+				echo "Error obtaining or processing quote details: " . $e->getMessage();
 			}
-			?>
+		?>
 		
 		<div class="form-check pb-3">
             <label class="form-check-label">
@@ -128,8 +170,6 @@
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
-
-		
 
 		</div>
 
@@ -164,7 +204,7 @@ function addLineItem() {
 
 	// create line item fields, and removal button:
 	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00" onchange="calculateTotal()"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -197,6 +237,45 @@ function removeLineItem(itemID) {
 
 	//As we have removed the newest line item, clear the reference to the newest line item.
 	newestLineItemID = undefined;
+
+	calculateTotal(); //recalculate the total with the remaining line items.
+}
+
+function calculateTotal() {	
+	//total line items:
+	var totalCost = 0;
+
+	var numLineItems = $("#numLineItems").val();
+	var i;
+	for(i = 1; i <= numLineItems; i++)
+	{
+		//if the row has not been deleted, factor it in the calculation
+		if($("#deleted" + i).val() == "false")
+		{
+			totalCost = totalCost + parseFloat($("#price" + i).val())
+		}
+	}
+	alert(parseFloat($("#discountAmount").val()));
+	//apply discount:
+	if($("#discountTypeDropdown").val() == "Percentage" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
+	{
+		totalCost = totalCost - (totalCost * parseFloat($("#discountAmount").val()));
+	}
+	else if (!isNaN(parseFloat($("#discountAmount").val()))) //dollar amount
+	{
+		totalCost = totalCost - parseFloat($("#discountAmount").val());
+	}
+
+	if(totalCost < 0)
+	{
+		totalCost = 0;
+	}
+	
+	//format for US currency. SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
+	var formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalCost);
+
+	//display new total:
+	$("#quoteTotal").val(formattedTotal);
 }
 
 </script>
