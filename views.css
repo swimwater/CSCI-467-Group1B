@@ -5,19 +5,19 @@
     font-family: sans-serif;
     box-sizing: border-box;
 }
-body
+body                                /* BACKGROUND OF SCREEN */
 {
-    height: 50vh;
+    height: 50vh;                   
     display: grid;
     place-items: center;
     background: #34495e;
 }
-table
+table                               /* TABLE IN GENERAL      */
 {
     width: 900px;
 
 }
-table, td, th
+table, td, th                       /*  GENERIC TABLE, DATA CELL AND HEAD INFO      */
 {
     padding: 10px;
     border: 1px solid black;
@@ -25,17 +25,17 @@ table, td, th
     text-align: center;
 
 }
-td
+td                                  /*   FONTS FOR DATA CELLS       */
 {
     font-size: 16px;
 }
-th
+th                                  /*   TABLE HEAD COLOR AND FONT COLOR     */
 {
     background-color:silver;
     color:black;
 
 }
-tr:nth-child(odd)
+tr:nth-child(odd)                   /*    ALTERNATING COLORS FOR ROWS   */
 {
     background-color:lightskyblue;
     color:black;
@@ -46,77 +46,15 @@ tr:nth-child(even)
     color:black;
 }
 
-h1{
+h1{                                 /*    HEADER DESIGN    */
     color:white;
     text-transform: uppercase;
     font-weight: 500;
     padding:12px;
 }
-.MYCHECKBOX
+.CUSTOMSUBMIT                       /*    SUBMIT BUTTON   */
 {
-    color:white;
-    position:relative;
-    left:200px;
-}
-.CHECKLABEL
-{
-    color:white;
-    position:relative;
-    left:210px;
-}
-.DATE                       /*  CLASS FOR DATE INPUT BOXES  */
-{
-    margin-top: 20px;
-    position:relative;
-    color:black;
-    background:white;
-
-}
-#start
-{
-    left:-60px;
-}
-#end
-{
-    left:20px;
-    background:black;
-    color:white;
-   
-}
-
-.DATELABEL                  /* CLASS FOR DATE LABELS   */
-{
-    color:white;
-    position:relative;
-    top:-25px;
-}
-#STARTLABEL
-{
-    left:30px;
-
-}
-#ENDLABEL
-{
-    left:102px;
-}
-.CUSTOMINPUT                /* CLASS FOR INPUT BOXES */
-{
-    position:relative;
-    left:130px;
-}
-#ASSOC
-{
-    background:coral;
-    color:black;
-}
-#CUST
-{
-    background:deepskyblue;
-    color:black;
-}
-.CUSTOMSUBMIT
-{
-   margin-top: 15px;
+   margin-top: 40px;
    width:20%;
    background:#2ecc71;
    color:white;
@@ -124,7 +62,98 @@ h1{
    padding:10px;
    border-radius:1px;
    height: 40px;
-   width: 210px;
+   width: 528px;
    position:relative;
-   left:145px;
+   margin-left:auto;
+   margin-right:auto;
 }
+.CUSTOMINPUT                       /*     CLASS FOR INPUT BOXES */
+{
+    position:relative;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    top:-220px;
+}
+#ASSOC                             /*      SEARCH BY ASSOCIATE    */
+{
+    background:coral;
+    color:black;
+}
+#CUST                              /*      SEARCH BY CUSTOMER */
+{
+    background:deepskyblue;
+    color:black;
+}
+
+.DATE                              /*  CLASS FOR DATE INPUT BOXES  */
+{
+    margin-top: 10px;
+    position:relative;
+    color:black;
+    background:white;
+    display:inline;
+    text-align: center;
+    margin-right: auto;
+    margin-left:auto;
+    top:-25px;
+    right:-152px;
+
+}
+#end                              /*    END DATE   */ 
+{
+    background:black;
+    color:white;
+    right:-162px;
+}
+.DATELABEL                       /* CLASS FOR DATE LABELS   */
+{
+    color:white;
+    position:relative;
+    text-align: center;
+    top:-25px;
+    right:-148px;
+   
+}
+
+.MYCHECKBOX                      /*  CLASS FOR CHECKBOXES      */
+{
+    color:white;
+    position:relative;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#final                           /*   FINALIZED CHECKBOX     */
+{
+    top:215px;
+}
+#sanc                            /*   SANCTIONED CHECKBOX    */
+{
+    top:220px;
+}
+#order                           /*   ORDERED CHECKBOX       */
+{
+    top:225px;
+}
+.CHECKLABEL                      /*  CLASS FOR CHECKBOX LABELS*/
+{
+    color:white;
+    position:relative;
+    text-align: center;
+    margin-right:auto;
+    right:-148px;
+}
+#FINAL                           /*  FINALIZED CHECKBOX     */
+{
+    top:195px;
+}
+#SANC                            /*  SANCTIONED CHECKBOX     */
+{
+    top:200px;
+}
+#ORDER                           /*  ORDERED CHECKBOX     */
+{
+    top:205px;
+}
+
