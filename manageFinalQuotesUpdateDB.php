@@ -12,7 +12,7 @@
 
     <body>
         <?php
-
+            print_r($_POST);
             try {
                 include("credentials.php");
                 // connect to the database
@@ -51,6 +51,14 @@
                         $query->execute(array(":price" => $price, ":descr" => $description, ":descrID" => $_POST["lineItemID".$i]));
                     }
                 }
+                
+                $discountAmt = $_POST["discountAmount"];
+
+                $percent = 0;
+                if($_POST["discountTypeDropdown"] == "Percentage")
+                {
+                    $percent = 1;
+                }
 
                 $sNote = $_POST["snotes"];
 
@@ -58,17 +66,18 @@
                 // if the user checked the sanction quote checkbox, we set the quote to sanctioned in the database.
                 if(isset($_POST['sanctionCheckbox']))
                 {
-                    // set this quote we are modifying to finalized:
-                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Status = 'Sanctioned' WHERE Quote_Id = :quoteID"); 
+                    echo 'SANCTIONING QUOTE, SENDING EMAIL, ETC.';
+                    // set this quote we are modifying to sanctioned:
+                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Discount = :discount, Percent = :percent, Status = 'Sanctioned' WHERE Quote_Id = :quoteID");
 
-                    $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
+                    $query->execute(array(":sNote" => $sNote, ":discount" => $discountAmt, ":percent" => $percent, ":quoteID" => $quoteID));
 
                 }
-                else // if the quote is not to be finalized, simply update its notes.
+                else // if the quote is not to be sanctioned, simply update its notes and discount information
                 {
-                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote WHERE Quote_Id = :quoteID"); 
+                    $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Discount = :discount, Percent = :percent WHERE Quote_Id = :quoteID"); 
 
-                    $query->execute(array(":sNote" => $sNote, ":quoteID" => $quoteID));
+                    $query->execute(array(":sNote" => $sNote, ":discount" => $discountAmt, ":percent" => $percent,  ":quoteID" => $quoteID));
                 }
                 
                 echo '<div class="container-fluid">';
