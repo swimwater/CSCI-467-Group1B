@@ -102,7 +102,7 @@
 						//create type drop down with percentage selected:
 						echo '<div class="form-group">
 						<label for="discountTypeDropdown">Discount Type:</label>
-						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" name="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 						<option value="Percentage">Percentage</option>
 						<option value="Dollar Amount">Dollar Amount</option>
 						</select>
@@ -115,7 +115,7 @@
 						//create type drop down with dollar amount selected:
 						echo '<div class="form-group">
 						<label for="discountTypeDropdown">Discount Type:</label>
-						<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+						<select class="form-control text-light bg-dark" id="discountTypeDropdown" name="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 						<option value="Percentage">Percentage</option>
 						<option selected value="Dollar Amount">Dollar Amount</option>
 						</select>
@@ -131,7 +131,7 @@
 					//create type drop down with dollar amount selected:
 					echo '<div class="form-group">
 					<label for="discountTypeDropdown">Discount Type:</label>
-					<select class="form-control text-light bg-dark" id="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
+					<select class="form-control text-light bg-dark" id="discountTypeDropdown" name="discountTypeDropdown" onchange="calculateTotal()" value="Dollar Amount">
 					<option value="Percentage">Percentage</option>
 					<option selected value="Dollar Amount">Dollar Amount</option>
 					</select>
@@ -255,7 +255,7 @@ function calculateTotal() {
 			totalCost = totalCost + parseFloat($("#price" + i).val())
 		}
 	}
-	alert(parseFloat($("#discountAmount").val()));
+
 	//apply discount:
 	if($("#discountTypeDropdown").val() == "Percentage" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
 	{
