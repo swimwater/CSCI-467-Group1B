@@ -4,7 +4,7 @@
 
 
     if(isset($_POST["Login"])) {
-        if(empty($_POST["user_id"]) || empty($_POST["password"]) || empty($_POST["user_type"])) {
+        if(empty($_POST["user_id"]) || empty($_POST["password"])) {
             $msg = '<div style="text-align: center">ALL FIELDS REQUIRED.</div>';
             echo "<font color='yellow'>" . $msg . "</font>";
         }
@@ -12,9 +12,8 @@
             try {
                 $id = $_POST['user_id'];
                 $pswd = $_POST['password'];
-                $user = $_POST['user_type'];
 
-                $getLogin = "select User_Id, Password, Pos from Associate where Associate.User_Id = '$id' and Associate.Password = '$pswd' and Associate.Pos = '$user';";
+                $getLogin = "select User_Id, Password, Pos from Associate where User_Id = ".$id." and Password = '".$pswd."';";
 
                 $login_query = $pdo->query($getLogin);
 
@@ -51,14 +50,12 @@
         <meta charset="utf-8">
         <title>Multi User Login Form</title>
         <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+$
-        <link rel="stylesheet" href="multiUserLogin.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="associate.css">
     </head>
     <body>
         <!--nav bar-->
-        <?php require "navbar.php"
-
-        ?>
+        <?php require "navbar.php" ?>
         <!--page body-->
         <div class="center">
             <h1>Login Portal</h1>
@@ -68,14 +65,6 @@
                 </div>
                 <div class="txt_field">
                     <input type="password" name="password" placeholder="Password">
-                </div>
-                <div class="drop_menu">
-                    <select name="user_type">
-                        <option value="-1">Select User Type</option>
-                        <option value="user_type">Associate</option>
-                        <option value="1">HQ</option>
-                        <option value="2">Administrator</option>
-                    </select>
                 </div>
                 <input type="submit" name="Login" value="Login">
                 <div class="pass_link">
