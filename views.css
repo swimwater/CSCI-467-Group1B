@@ -48,6 +48,7 @@ tr:nth-child(even)
 
 h1{                                 /*    HEADER DESIGN    */
     color:white;
+    text-decoration: underline;
     text-transform: uppercase;
     font-weight: 500;
     padding:12px;
