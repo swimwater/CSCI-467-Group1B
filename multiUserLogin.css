@@ -37,6 +37,29 @@ form .txt_field {
         margin: 30px 0;
 }
 
+form .drop_menu {
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin: 30px 0;
+}
+
+.drop_menu select {
+        width: 200px;
+        padding: 14px 10px;
+        height: 40px;
+        font-size: 16px;
+        border: 2px solid #3498db;
+        border-radius: 24px;
+        background: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        outline: none;
+        color: white;
+        transition: 0.25s;
+
+}
+
 .txt_field input {
         width: 200px;
         padding: 14px 10px;
@@ -51,23 +74,6 @@ form .txt_field {
         outline: none;
         color: white;
         transition: 0.25s;
-}
-
-.txt_field label {
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        color: #adadad;
-        transform: translateY(-50%);
-        font-size: 16px;
-        pointer-events: none;
-        transition: .5s;
-}
-
-.txt_field input:focus ~ label,
-.txt_field input:valid ~ label {
-        top: -5px;
-        color: #2691d9;
 }
 
 input[type="submit"] {
