@@ -54,8 +54,6 @@
         <link rel="stylesheet" type="text/css" href="associate.css">
     </head>
     <body>
-        <!--nav bar-->
-        <?php require "navbar.php" ?>
         <!--page body-->
         <div class="center">
             <h1>Login Portal</h1>
