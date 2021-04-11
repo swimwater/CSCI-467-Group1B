@@ -129,18 +129,29 @@ $finalPrice = $totalPrice;
 
 <div class="container-fluid">
   <h2>Final Total:</h2>
+  <form action="processOrder.php" method="POST">
   <?php $formattedCost = number_format($finalPrice, 2); ?>
-  <input class="form-control text-light bg-dark w-25 mb-3" id="quoteTotal" type="text" value=<?php echo "\"$ ".$formattedCost."\"";?> readonly>
+  <input class="form-control text-light bg-dark w-25 mb-3" id="quoteTotal" name="amount" type="text" value=<?php echo "\"$".$formattedCost."\"";?> readonly>
 </div>
 
+<div class="container-fluid">
+  <div class="row">
+    <a class="btn btn-danger ml-2 mr-2" href="viewSanctionQuotes.php" role="button">Cancel</a>
+      <input type="hidden" name="orderNum" value=<?php echo "\"".$QInfo['Quote_Id']."\"";?>>
+      <input type="hidden" name="Asso_Id" value=<?php echo "\"".$QInfo['User_Id']."\"";?>>
+      <input type="hidden" name="Cust_Id" value=<?php echo "\"".$QInfo['Cust_Id']."\"";?>>
+      <button type="submit" class="btn btn-success">Place Order</button>
+    </form>
+  </div>
+</div>
 </html>
 <script>
 function calculateTotal(totalCost) {
-
 	//apply discount:
 	if($("#discountTypeDropdown").val() == "Percent" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
 	{
-		totalCost = totalCost - (totalCost * parseFloat($("#discountAmount").val()));
+    var temp = parseFloat($("#discountAmount").val()) / 100;
+		totalCost = totalCost - (totalCost * temp);
 	}
 	else if (!isNaN(parseFloat($("#discountAmount").val()))) //dollar amount
 	{
@@ -153,9 +164,9 @@ function calculateTotal(totalCost) {
 	}
 
 	//format for US currency. SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
-	var formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalCost);
+	var formattedCost = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalCost);
 
 	//display new total:
-	$("#quoteTotal").val(formattedTotal);
+	$("#quoteTotal").val(formattedCost);
 }
 </script>

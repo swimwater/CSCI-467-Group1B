@@ -25,11 +25,11 @@ insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (1, 2, "Ryan's secret notes for his first quote", "Sanctioned", '20210304');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (6, 3, "McDonalds is aiiight", "Ordered", '20210304');
+  values (6, 3, "McDonalds is aiiight", "Sanctioned", '20210304');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (5, 4, "Burger king has decent burgers", "Finalized", '20210306');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (4, 5, "I hardly go to wendys. Not sure why", "Ordered", '20210224');
+  values (4, 5, "I hardly go to wendys. Not sure why", "Sanctioned", '20210224');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (10, 6, "Mmmm smoky adobo", "Sanctioned", '20210305');
 insert into Quote (User_Id, Cust_Id, SNote)
