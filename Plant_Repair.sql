@@ -5,6 +5,7 @@
 # Written by Ben Ford
 
 drop table if exists Quote_Descript;
+drop table if exists Ordered_Quote;
 drop table if exists Quote;
 drop table if exists Associate;
 
@@ -37,4 +38,13 @@ create table Quote_Descript(
     Descript   VARCHAR(1000) NOT NULL,
 
     foreign key(Quote_Id) references Quote(Quote_Id)
+);
+
+create table Ordered_Quote(
+  Quote_Id   INT            NOT NULL PRIMARY KEY,
+  processDay DATETIME       NOT NULL,
+  finalPrice DECIMAL(15,2)  NOT NULL,
+  commiss    DECIMAL(15,2)  NOT NULL,
+
+  foreign key(Quote_Id) references Quote(Quote_Id)
 );
