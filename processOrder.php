@@ -1,7 +1,7 @@
 <?php
   require("session.php");
   require("secrets.php");
-  //header('Location:viewSanctionQuotes.php');
+  header('Location:viewSanctionQuotes.php');
 ?>
 
 <?php
@@ -26,23 +26,17 @@ $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 $values = json_decode($result, true);
 
-echo $values['order']."<br>";
-echo $values['associate']."<br>";
-echo $values['custid']."<br>";
-echo $values['amount']."<br>";
-echo $values['name']."<br>";
-echo $values['processDay']."<br>";
-echo $values['commission']."<br>";
-echo $values['timeStamp']."<br>";
-echo $values['_id']."<br>";
-
-$temp = chop($values['commission'],"%");
-$temp = floatval($temp) / 100;
-echo $commission = floatval($values['amount']) - (floatval($values['amount']) * $temp);
-
 if (isset($values['processDay']))
 {
-  $insertOrder = "insert into Ordered_Quote (Quote_Id, processDay, finalPrice, commiss) values (".$values['order'].", '".$values['processDay']."', ".$values['amount'].", ".$commission.");";
+  $time = json_decode( '{"date": "/Date('.$values['timeStamp'].')/"}' );
+  $time->date = preg_replace( '/[^0-9]/', '', $time->date );
+  $date = date("Y-m-d H:i:s", ($time->date / 1000));
+
+  $temp = chop($values['commission'],"%");
+  $temp = floatval($temp) / 100;
+  $commission = round(floatval(($values['amount']) - (floatval($values['amount']) * $temp)), 2);
+
+  $insertOrder = "insert into Ordered_Quote (Quote_Id, processDay, finalPrice, commiss) values (".$values['order'].", '".$date."', ".$values['amount'].", ".$commission.");";
 
   $getCommis = "select Accu_Com from Associate where User_Id = ".$values['associate'].";";
   $result = $pdo->query($getCommis);
