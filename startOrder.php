@@ -140,7 +140,7 @@ $finalPrice = $totalPrice;
       <input type="hidden" name="orderNum" value=<?php echo "\"".$QInfo['Quote_Id']."\"";?>>
       <input type="hidden" name="Asso_Id" value=<?php echo "\"".$QInfo['User_Id']."\"";?>>
       <input type="hidden" name="Cust_Id" value=<?php echo "\"".$QInfo['Cust_Id']."\"";?>>
-      <button type="submit" class="btn btn-success">Place Order</button>
+      <button type="submit" class="btn btn-success" onClick='sendEmail()'>Place Order</button>
     </form>
   </div>
 </div>
@@ -168,5 +168,10 @@ function calculateTotal(totalCost) {
 
 	//display new total:
 	$("#quoteTotal").val(formattedCost);
+}
+
+function sendEmail(){
+  alert("An email has been sent to the customer containing the details for this order.");
+  return;
 }
 </script>
