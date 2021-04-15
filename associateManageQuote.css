@@ -7,3 +7,53 @@ body {
 	background: #34495e;
 	color: white;
 }
+#PLACE
+{
+	top:30px;
+	width:20%;
+	background:#2ecc71;
+	color:white;
+	border: 0;
+	padding:10px;
+	border-radius:1px;
+	height: 40px;
+	width: 528px;
+	position:relative;
+	margin-left: auto;
+	
+}
+#PLACE:hover
+{
+	background:white;
+	color:#2ecc71;
+}
+#PLACE:focus
+{
+	background:#2ecc71;
+	color:white;
+}
+#CANCEL
+{
+	top:30px;
+	width:20%;
+	background:red;
+	color:white;
+	border: 0;
+	padding:10px;
+	border-radius:1px;
+	height: 40px;
+	width: 528px;
+	position:relative;
+
+}
+#CANCEL:hover
+{
+	background:white;
+	color:red;
+}
+#CANCEL:focus
+{
+	background:red;
+	color:white;
+}
+
