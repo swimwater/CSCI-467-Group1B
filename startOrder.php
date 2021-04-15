@@ -66,7 +66,7 @@ if ($QInfo['Discount'] != NULL)
 {
   if ($QInfo['Percent'] == 1)
   {
-    $discount = $QInfo['Discount'] * $totalPrice;
+    $discount = ($QInfo['Discount'] / 100) * $totalPrice;
     $totalPrice = $totalPrice - $discount;
   }
   else
@@ -103,7 +103,7 @@ $finalPrice = $totalPrice;
           <option value="Dollar Amount">Dollar Amount</option>
         </select>
       </div>
-      <?php $finalPrice = $finalPrice - ($finalPrice * $_POST['Discount']);?>
+      <?php $finalPrice = $finalPrice - ($finalPrice * ($_POST['Discount'] / 100));?>
     <?php else:?>
       <div class="form-group">
         <label for="discountTypeDropdown">Discount Type:</label>
