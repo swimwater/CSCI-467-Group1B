@@ -66,20 +66,38 @@ h1{                                 /*  HEADER    */
    border-radius:1px;
    height: 40px;
    width: 100px;
+   border: 2px solid #2ecc71;
+}
+.mybutton:hover
+{
+    background:white;
+    color:#2ecc71;
+}
+.mybutton:focus
+{
+    background:#2ecc71;
+    color:white;
 }
 #ADD-BUTTON                     /* ADD BUTTON     */
 {
     background: cornflowerblue;
     position:relative;
-    left:900px;
+    left:897px;
     height: 40px;
     width: 100px;
     border: 2px solid cornflowerblue;
 }
+#ADD-BUTTON:hover
+{
+    background:white;
+    color:cornflowerblue;
+}
 #ADD-BUTTON:focus           /*   ADD BUTTON ANIMATION    */
 {
-    width: 250px;
+    width: 150px;
     border-radius: 24px;
+    background:cornflowerblue;
+    color:white;
     transition: 0.25s;
     cursor: pointer;
 }
@@ -87,8 +105,18 @@ h1{                                 /*  HEADER    */
 #DELETE                     /*  DELETE BUTTON     */
 {
     background:red;
+    border: 2px solid red;
 }
-
+#DELETE:hover
+{
+    background:white;
+    color:red;
+}
+#DELETE:focus
+{
+    background:red;
+    color:white;
+}
 
 .SUBMIT               /* CLASS FOR TRANSFER SUBMIT BUTTON     */
 {

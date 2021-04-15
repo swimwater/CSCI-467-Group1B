@@ -1,6 +1,10 @@
 h1 {
-	font-size: 2rem;
-	color: white;
+	color:white;
+	text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding:12px;
 }
 
 body {
