@@ -1,6 +1,10 @@
 <?php
   require("session.php");
   require("secrets.php");
+  if(!isset($_POST['Quote_Id']))
+  {
+    header('Location:viewSanctionQuotes.php');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +52,7 @@
 </div>
 
 <div class="container-fluid">
-  <h5 class="pt-2">Secret Notes for Quote !!These will not be sent to the customer!!</h5>
+  <h5 class="pt-2">Secret Notes for Quote!! These will not be sent to the customer!!</h5>
   <table class="table table-bordered table-dark">
     <tr>
       <td><?php echo $QInfo['SNote'];?></td>
@@ -136,11 +140,11 @@ $finalPrice = $totalPrice;
 
 <div class="container-fluid">
   <div class="row">
-    <a class="btn btn-danger ml-2 mr-2" href="viewSanctionQuotes.php" role="button">Cancel</a>
+    <a class="btn btn-danger ml-2 mr-2" id=CANCEL href="viewSanctionQuotes.php" role="button">Cancel</a>
       <input type="hidden" name="orderNum" value=<?php echo "\"".$QInfo['Quote_Id']."\"";?>>
       <input type="hidden" name="Asso_Id" value=<?php echo "\"".$QInfo['User_Id']."\"";?>>
       <input type="hidden" name="Cust_Id" value=<?php echo "\"".$QInfo['Cust_Id']."\"";?>>
-      <button type="submit" class="btn btn-success" onClick='sendEmail()'>Place Order</button>
+      <button type="submit" class="btn btn-success" id=PLACE onClick='sendEmail()'>Place Order</button>
     </form>
   </div>
 </div>
