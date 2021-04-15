@@ -24,20 +24,20 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Welcome</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggle-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="record.php">Home</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="record.php">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav">
+                <li class="nav-item active">
                     <a class="nav-link" href="customer.php">Customer</a>
                 </li>
-                <li class="nav">
+                <li class="nav-item">
                     <a class="nav-link" href="quote-form.php">Quote Form</a>
                 </li>
-                <li class="nav">
+                <li class="nav-item">
                     <a class="nav-link" href="manageUnfinalQuotesHeader.php">View Unfinalized Quotes</a>
                 </li>
                 <li class="nav-item">
@@ -51,14 +51,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Welcome</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggle-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="nav-link" href="manageFinalQuotesHeader.php">Home<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="manageFinalQuotesHeader.php">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav">
+                <li class="nav-item active">
                     <a class="nav-link" href="manageFinalQuotesHeader.php">View Finalized Quotes</a>
                 </li>
                 <li class="nav-item">
@@ -79,7 +79,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
@@ -92,10 +92,10 @@
                     <a class="nav-link" href="transferQuote.php">Transfer Quotes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="record.php" id="navbarDropdown">Associate Portal</a>
+                    <a class="nav-link" href="record.php">Associate Portal</a>
                 </li>
-                <li class="nav-item nav-item">
-                    <a class="nav-link" href="viewSanctionQuotes.php" id="navbarDropdown">HQ Portal</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="viewSanctionQuotes.php">HQ Portal</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
