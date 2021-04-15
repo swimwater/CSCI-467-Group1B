@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    height: 50vh;
+    display: grid;
+    place-items: center;
+    background: #34495e;
+}
+
+table {
+    width: 900px;
+}
+
+table, td, th {
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+
+}
+
+td {
+    font-size: 16px;
+}
+
+th {
+    background-color: silver;
+    color: black;
+}
+
+tr:nth-child(odd) {
+    background-color: lightskyblue;
+    color: black;
+}
+
+tr:nth-child(even) {
+    background-color: white;
+    color: black;
+}
+
+h1 {
+    color:white;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 12px;
+}
