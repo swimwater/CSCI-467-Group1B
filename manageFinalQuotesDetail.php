@@ -108,7 +108,7 @@
 						</select>
 						</div>';	
 
-						$totalCost = $totalCost - ($totalCost * $_POST['discount']); //take the percentage discount off the total cost.
+						$totalCost = $totalCost - ($totalCost * ($_POST['discount'] / 100.0)); //take the percentage discount off the total cost.
 					}
 					else //if it is a dollar amount or unset,
 					{
@@ -259,7 +259,7 @@ function calculateTotal() {
 	//apply discount:
 	if($("#discountTypeDropdown").val() == "Percentage" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
 	{
-		totalCost = totalCost - (totalCost * parseFloat($("#discountAmount").val()));
+		totalCost = totalCost - (totalCost * (parseFloat($("#discountAmount").val() / 100.0)));
 	}
 	else if (!isNaN(parseFloat($("#discountAmount").val()))) //dollar amount
 	{

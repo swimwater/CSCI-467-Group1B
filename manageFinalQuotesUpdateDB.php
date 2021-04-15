@@ -12,7 +12,7 @@
 
     <body>
         <?php
-            print_r($_POST);
+
             try {
                 include("credentials.php");
                 // connect to the database
@@ -66,7 +66,7 @@
                 // if the user checked the sanction quote checkbox, we set the quote to sanctioned in the database.
                 if(isset($_POST['sanctionCheckbox']))
                 {
-                    echo 'SANCTIONING QUOTE, SENDING EMAIL, ETC.';
+                    
                     // set this quote we are modifying to sanctioned:
                     $query = $pdo->prepare("UPDATE Quote SET SNote = :sNote, Discount = :discount, Percent = :percent, Status = 'Sanctioned' WHERE Quote_Id = :quoteID");
 
@@ -97,3 +97,12 @@
 
     </body>
 </html>
+
+<?php
+if(isset($_POST['sanctionCheckbox']))
+{
+    echo '<script type="text/javascript">';
+    echo 'alert("The quote has been sanctioned: an email has been sent to the customer containing the quote information.")';
+    echo '</script>';
+}
+?>
