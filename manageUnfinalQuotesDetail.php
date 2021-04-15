@@ -49,13 +49,14 @@
 
 				// for each line item that exists for this quote in the database, create a table row in the line item table:
 				$n = 0;
+				$totalCost = 0;
 				foreach($quoteLineItems as $lineItem)
 				{
 					$n++; // increment the count of total line items present in the grid
 					
 					// create the form controls for each column in the grid row
 					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'" onchange="calculateTotal()"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 					
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
@@ -67,6 +68,8 @@
 					// add the table row to the page
 					echo '<tr id='.$n.'><td>'.$descriptionTextField.'</td><td>'.$priceField.'</td><td>'.$removeButton.'</td></tr>';
 
+					// tally total cost of quote
+					$totalCost = $totalCost + $lineItem["Price"];
 				}
 				echo '</table>';
 
@@ -90,6 +93,13 @@
 		</label>
 		</div>
 		
+		
+		<h2>Quote Total:</h2>
+		<?php
+			$formattedCost = number_format($totalCost, 2);
+			echo '<input class="form-control text-light bg-dark w-25 mb-3" id="quoteTotal" type="text" value="$'.$formattedCost.'" readonly>';
+		?>
+
 		<div class="row">
 
 		<!-- a back button to take the user back to the header view -->
@@ -97,8 +107,6 @@
 
 		<!--the button that will submit the form and save the current line edits to the database.-->
 		<button type="submit" class="btn btn-success">Save Changes</button>
-
-		
 
 		</div>
 
@@ -133,7 +141,7 @@ function addLineItem() {
 
 	// create line item fields, and removal button:
 	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" placeholder="0.00"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" onchange="calculateTotal()" placeholder="0.00"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -166,6 +174,45 @@ function removeLineItem(itemID) {
 
 	//As we have removed the newest line item, clear the reference to the newest line item.
 	newestLineItemID = undefined;
+
+	calculateTotal(); //recalculate the total with the remaining line items.
+}
+
+function calculateTotal() {	
+	//total line items:
+	var totalCost = 0;
+
+	var numLineItems = $("#numLineItems").val();
+	var i;
+	for(i = 1; i <= numLineItems; i++)
+	{
+		//if the row has not been deleted, factor it in the calculation
+		if($("#deleted" + i).val() == "false" && !isNaN(parseFloat($("#price" + i).val())))
+		{
+			totalCost = totalCost + parseFloat($("#price" + i).val())
+		}
+	}
+
+	//apply discount:
+	if($("#discountTypeDropdown").val() == "Percentage" && !isNaN(parseFloat($("#discountAmount").val()))) //percentage
+	{
+		totalCost = totalCost - (totalCost * parseFloat($("#discountAmount").val()));
+	}
+	else if (!isNaN(parseFloat($("#discountAmount").val()))) //dollar amount
+	{
+		totalCost = totalCost - parseFloat($("#discountAmount").val());
+	}
+
+	if(totalCost < 0)
+	{
+		totalCost = 0;
+	}
+	
+	//format for US currency. SOURCE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat
+	var formattedTotal = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalCost);
+
+	//display new total:
+	$("#quoteTotal").val(formattedTotal);
 }
 
 </script>

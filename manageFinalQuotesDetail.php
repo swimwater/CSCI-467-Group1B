@@ -250,7 +250,7 @@ function calculateTotal() {
 	for(i = 1; i <= numLineItems; i++)
 	{
 		//if the row has not been deleted, factor it in the calculation
-		if($("#deleted" + i).val() == "false")
+		if($("#deleted" + i).val() == "false" && !isNaN(parseFloat($("#price" + i).val())))
 		{
 			totalCost = totalCost + parseFloat($("#price" + i).val())
 		}
