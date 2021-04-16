@@ -7,21 +7,21 @@
 ?>
 
 <html>
-	<head> 
+	<head>
 		<!--include bootstrap CSS via CDN and custom stylesheet --->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="associateManageQuote.css" />
 
 		<!--include jquery and bootstrap javascript via CDN --->
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 	</head>
-	
-	<body> 
-	
+
+	<body>
+
 	<div class="container-fluid">
 		<?php require "navbar.php" ?>
-		
+
 		<h1 class="pt-2">Unfinalized Quotes</h1>
 
 		<!-- greet user -->
@@ -44,22 +44,22 @@
 					$userId = $_SESSION['user_id'];
 
 					// get all unfinalized quotes that have this user associated with them.
-					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Unfinalized' AND User_Id=:userID"); 
+					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Unfinalized' AND User_Id=:userID");
 
 					$query->execute(array(":userID" => $userId));
-		
+
 					$unfinalizedQuotes = $query->fetchAll(PDO::FETCH_ASSOC);
 
 					foreach($unfinalizedQuotes as $quote)
 					{
 						// get the customer information pertaining to this quote we're displaying
-						$customerQuery = $pdo2->prepare("SELECT * FROM customers WHERE id=:customerId"); 
+						$customerQuery = $pdo2->prepare("SELECT * FROM customers WHERE id=:customerId");
 
 						$customerQuery->execute(array(":customerId" => $quote['Cust_Id']));
 
 						$customerData = $customerQuery->fetchAll(PDO::FETCH_ASSOC)[0];
 
-						echo '<form action="http://students.cs.niu.edu/~z1866716/manageUnfinalQuotesDetail.php" method="POST">';
+						echo '<form action="manageUnfinalQuotesDetail.php" method="POST">';
 
 						// hidden field containing quote ID. This will be posted to the detail page, allowing us to find the quote's line items.
 						echo '<input type="hidden" name="quoteID" value="'.$quote["Quote_Id"].'">';
@@ -73,18 +73,18 @@
 						// print the table row with the quote button and information:
 						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</tr>';
 
-						echo "</form>";	
+						echo "</form>";
 					}
 
 				}
 				catch(PDOexception $e){
 					echo "Error displaying quote header information: " . $e->getMessage();
-				}	
+				}
 
 			?>
 
 		</table>
 	</div>
-		
+
 	</body>
 </html>

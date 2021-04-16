@@ -34,7 +34,7 @@ if (isset($values['processDay']))
 
   $temp = chop($values['commission'],"%");
   $temp = floatval($temp) / 100;
-  $commission = round(floatval(($values['amount']) - (floatval($values['amount']) * $temp)), 2);
+  $commission = round((floatval($values['amount']) * $temp), 2);
 
   $insertOrder = "insert into Ordered_Quote (Quote_Id, processDay, finalPrice, commiss) values (".$values['order'].", '".$date."', ".$values['amount'].", ".$commission.");";
 

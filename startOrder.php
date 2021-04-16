@@ -77,7 +77,10 @@ if ($QInfo['Discount'] != NULL)
     $discount = $QInfo['Discount'];
   }
 }
+$totalPrice = round($totalPrice, 2);;
 $finalPrice = $totalPrice;
+$discount = round($discount, 2);
+
 ?>
 
 <div class="container-fluid">
