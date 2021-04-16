@@ -15,6 +15,8 @@
 </head>
 
 <body>
+  <!--nav bar-->
+  <?php require "navbar.php"?>
     <h1>Sanctioned Quotes</h1>
 </body>
 <div class="container-fluid">

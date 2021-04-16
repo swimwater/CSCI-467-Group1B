@@ -19,6 +19,8 @@
 </head>
 
 <body>
+  <!--nav bar-->
+  <?php require "navbar.php"?>
   <h1 class="pt-2">Quote <?php echo $_POST["Quote_Id"]?> - Apply Final Discount and Process Order</h1>
 </body>
 
