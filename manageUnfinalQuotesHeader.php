@@ -1,5 +1,11 @@
 <!--- manage unfinalized quotes --->
 
+<?php
+    require("session.php");
+    require("secrets.php");
+    require("legacyDatabase.php");
+?>
+
 <html>
 	<head> 
 		<!--include bootstrap CSS via CDN and custom stylesheet --->
@@ -14,11 +20,12 @@
 	<body> 
 	
 	<div class="container-fluid">
+		<?php require "navbar.php" ?>
 		
 		<h1 class="pt-2">Unfinalized Quotes</h1>
 
 		<!-- greet user -->
-		<p>Hello, {USERNAME}. Please choose an unfinalized quote to edit below.</p>
+		<p>Hello, please choose an unfinalized quote to edit below.</p>
 
 
 		<table class="table table-bordered table-dark">
@@ -34,16 +41,7 @@
 			<?php
 
 				try{
-					include("credentials.php");
-
-					$userId = 1; // DEBUG - replace with logged on associate/user ID from session
-
-					// connect to the quote/associate database
-					$dsn = "mysql:host=courses;dbname=z1866716";
-
-					$pdo = new PDO($dsn,$username,$password);
-	
-					$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					$userId = $_SESSION['user_id'];
 
 					// get all unfinalized quotes that have this user associated with them.
 					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Unfinalized' AND User_Id=:userID"); 
@@ -51,19 +49,11 @@
 					$query->execute(array(":userID" => $userId));
 		
 					$unfinalizedQuotes = $query->fetchAll(PDO::FETCH_ASSOC);
-					
-					// connect to the legacy database containing customer information
-
-					$legacyDsn = "mysql:host=blitz.cs.niu.edu;dbname=csci467";
-
-					$legacyPdo = new PDO($legacyDsn,"student","student");
-	
-					$legacyPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 					foreach($unfinalizedQuotes as $quote)
 					{
 						// get the customer information pertaining to this quote we're displaying
-						$customerQuery = $legacyPdo->prepare("SELECT * FROM customers WHERE id=:customerId"); 
+						$customerQuery = $pdo2->prepare("SELECT * FROM customers WHERE id=:customerId"); 
 
 						$customerQuery->execute(array(":customerId" => $quote['Cust_Id']));
 
@@ -88,7 +78,7 @@
 
 				}
 				catch(PDOexception $e){
-					echo "Failed to connect to database:" . $e->getMessage(); // print the error message if we fail to connect.
+					echo "Error displaying quote header information: " . $e->getMessage();
 				}	
 
 			?>

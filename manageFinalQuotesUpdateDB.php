@@ -1,3 +1,9 @@
+
+<?php
+    require("session.php");
+    require("secrets.php");
+?>
+
 <html>
 
     <head>
@@ -12,16 +18,11 @@
 
     <body>
         <?php
-
+        
             try {
-                include("credentials.php");
-                // connect to the database
-                $dsn = "mysql:host=courses;dbname=z1866716";
-
-                $pdo = new PDO($dsn,$username,$password);
-
-                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 
+                require "navbar.php";
+
                 $quoteID = $_POST["quoteID"];
 
                 for($i = 1; $i <= $_POST["numLineItems"]; $i++)

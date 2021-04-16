@@ -1,5 +1,11 @@
 <!--- manage finalized quotes --->
 
+<?php
+    require("session.php");
+    require("secrets.php");
+	require("legacyDatabase.php");
+?>
+
 <html>
 	<head> 
 		<!--include bootstrap CSS via CDN and custom stylesheet --->
@@ -15,11 +21,12 @@
 	
 	<div class="container-fluid">
 		
+		<?php require "navbar.php" ?>
+
 		<h1 class="pt-2">Finalized Quotes</h1>
 
 		<!-- greet user -->
-		<p>Hello, {USERNAME}. Please choose a finalized quote to edit below.</p>
-
+		<p>Hello, please choose a finalized quote to edit below.</p>
 
 		<table class="table table-bordered table-dark">
 			<!-- header row for finalized quotes table-->
@@ -34,14 +41,6 @@
 			<?php
 
 				try{
-					include("credentials.php");
-
-					// connect to the quote/associate database
-					$dsn = "mysql:host=courses;dbname=z1866716";
-
-					$pdo = new PDO($dsn,$username,$password);
-	
-					$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 					// get all unfinalized quotes that have this user associated with them.
 					$query = $pdo->prepare("SELECT * FROM Quote WHERE Status='Finalized'"); 
@@ -49,19 +48,11 @@
 					$query->execute();
 		
 					$finalizedQuotes = $query->fetchAll(PDO::FETCH_ASSOC);
-					
-					// connect to the legacy database containing customer information
-
-					$legacyDsn = "mysql:host=blitz.cs.niu.edu;dbname=csci467";
-
-					$legacyPdo = new PDO($legacyDsn,"student","student");
-	
-					$legacyPdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 					foreach($finalizedQuotes as $quote)
 					{
 						// get the customer information pertaining to this quote we're displaying
-						$customerQuery = $legacyPdo->prepare("SELECT * FROM customers WHERE id=:customerId"); 
+						$customerQuery = $pdo2->prepare("SELECT * FROM customers WHERE id=:customerId"); 
 
 						$customerQuery->execute(array(":customerId" => $quote['Cust_Id']));
 
@@ -92,8 +83,8 @@
 
 				}
 				catch(PDOexception $e){
-					echo "Failed to connect to database:" . $e->getMessage(); // print the error message if we fail to connect.
-				}	
+					echo "Error displaying quote header information: " . $e->getMessage();
+				}
 
 			?>
 
