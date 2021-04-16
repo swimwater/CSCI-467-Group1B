@@ -22,7 +22,7 @@
   <body>
     <?php if($_SESSION['pos'] == 0):?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Welcome</a>
+        <a class="navbar-brand" href="#">Welcome Associate <?php echo $_SESSION["user_id"];?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,9 +33,6 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="customer.php">Customer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="quote-form.php">Quote Form</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="manageUnfinalQuotesHeader.php">View Unfinalized Quotes</a>
@@ -49,7 +46,7 @@
     <?php endif;?>
     <?php if($_SESSION['pos'] == 1):?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Welcome</a>
+        <a class="navbar-brand" href="#">Welcome <?php echo $_SESSION["user_id"];?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -73,7 +70,7 @@
     <?php endif;?>
     <?php if($_SESSION['pos'] == 2):?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Welcome</a>
+        <<a class="navbar-brand" href="#">Welcome Admin <?php echo $_SESSION["user_id"];?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
