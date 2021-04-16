@@ -1,39 +1,136 @@
-<?php
-    require_once("session.php");
-    require_once("secrets.php");
-
-?>
-
 <!DOCTYPE html>
 <html>
         <head>
           <title>Quote Record Form</title>
+
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta charset="utf-8">
+
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+            }
+
+            #body {
+                height: 100%;
+            }
+
+            #cards {
+                margin: 200px auto;
+                max-width: 1250px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-column-gap: 30px;
+                font-family: sans-serif;
+            }
+
+            #card {
+                box-shadow: 0 0 3px rgba(0, 0, 0.1);
+            }
+
+            #cardImage {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+            }
+
+            #cardInfo {
+                padding: 15px;
+                display: flex;
+                justify-content: space-between;
+                background: #eeeeee;
+                font-size: 0.8em;
+                border-bottom: 2px solid #cccccc;
+                align-items: center;
+            }
+
+            #content {
+                line-height: 1.5;
+                font-size: 0.9em;
+                padding: 15px;
+                background: #fafafa;
+                margin-top: 0;
+                margin: 0px;
+                font-family: sans-serif;
+                color: #555555;
+                text-align: center;
+            }
+
+            #footer {
+                background-color: #211e1d;
+                height: 35px;
+                width: 100%;
+                padding: 0px;
+                margin: 0px;
+                display: inline-block;
+                text-align: center;
+                clear: both;
+            }
+
+            #footer p {
+                color: #555555;
+                padding: 0px;
+                margin: 8px 0px 0px 0px;
+                font-family: sans-serif;
+                font-size: 12px;
+            }
+          </style>
+
+          <!-- CSS only -->
           <link rel="stylesheet" href="record.css">
         </head>
-        <body>
+
+        <body id="body">
           <!--nav bar-->
-        <?php require "navbar-record.php"
+        <?php require "navbar.php"
 
         ?>
-        <div id="content">
-            <div class="tile">
+        <div id="cards" class="cards">
+            <div id="card" class="card">
+            <a href="customer.php" class="cardLink">
+            <div id="content" class="cardContent">
               <h3>Customers</h3>
-              <a href="customer.php">
-                <section>
-                  <div class=banner style="background-image: url('https://ciklopea.com/wp-content/uploads/2018/05/Customer-Experience-800x600.png');"></div>
-                </section>
-              </a>
-              <a href="customer.php"><p>View Current Customers</p></a>
             </div>
-            <div class="tile">
-              <h3>Quote Form</h3>
-              <a href="quote-form.php">
-                <section>
-                  <div class=banner style="background-image: url('https://y26uq11r8xr1zyp0d3inciqv-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/53-1.jpg');"></div>
-                </section>
-              </a>
-              <a href="quote-form.php"><p>View Quote Form</p></a>
+              <img class="cardImage" id="cardImage" src="https://ciklopea.com/wp-content/uploads/2018/05/Customer-Experience-800x600.png">
+              <div id="content" class="cardInfo">
+              <div>
+                <p>View Current Customers</p>
+              </div>
+              </div>
+            </a>
+            </div>
+            <div id="card" class="card">
+            <a href="quote-form.php" class="cardLink">
+            <div id="content" class="cardContent">
+              <h3>Quote Form 1</h3>
+            </div>
+              <img class="cardImage" id="cardImage" src="https://y26uq11r8xr1zyp0d3inciqv-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/53-1.jpg">
+              <div id="content" class="cardInfo">
+              <div>
+                <p>Add Quote</p>
+              </div>
+              </div>
+            </a>
+            </div>
+            <div id="card" class="card">
+              <a href="manageUnfinalQuotesHeader.php" class="cardLink">
+              <div id="content" class="cardContent">
+                <h3>Quote Form 2</h3>
+              </div>
+                <img class="cardImage" id="cardImage" src="https://www.salesforce.com/content/dam/blogs/ca/Blog%20Posts/customer-experience-open%20graph.jpg">
+                <div id="content" class="cardInfo">
+                <div>
+                  <p>Edit Quote</p>
+                </div>
+              </div>
+            </a>
             </div>
           </div>
         </body>
+
+        <footer id="footer">
+          <p>Created by Group 1B for NIU CSCI467 Group Project &copy; 4/28/2021</p>
+        </footer>
 </html>
