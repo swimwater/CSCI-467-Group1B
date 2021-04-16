@@ -77,8 +77,8 @@
       {
         if ($quoteDis['Percent'] == 1)
         {
-          $dis = "% ".$quoteDis['Discount'] * 100;
-          $discount = $quoteDis['Discount'] * $totalPrice;
+          $dis = "% ".$quoteDis['Discount'];
+          $discount = round(($quoteDis['Discount'] / 100) * $totalPrice , 2);
           $totalPrice = $totalPrice - $discount;
         }
         else

@@ -23,31 +23,14 @@
   <!--nav bar-->
   <?php require "navbar.php"
   ?>
-  
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-
     <?php
-      if (isset($_POST['Add_Quote']))
-      {
-        $getQuoteInfo = "select Cust_Id, Quote_Id, SNote from Quote where Quote_Id = ".$_POST['Quote'].";";
-        $result = $pdo->query($getQuoteInfo);
-        if ($result == false){echo "Failed to access Plant Repair database";}
-        $info = $result->fetch();
-
-        $custId = $info['Cust_Id'];
-        $quoteId = $info['Quote_Id'];
-        $sNote = $info['SNote'];
-      }
-      else
-      {
         $custId = "";
-        $quoteId = "";
         $sNote = "";
-      }
-
     ?>
     <div class = 'addQuote'>
       <form action="addQuote.php" method = "POST">
@@ -59,12 +42,6 @@
             </td>
           </tr>
           <tr>
-            <th>Quote Id:</th>
-            <td>
-                <input type="text" name="Quote Id" placeholder="Enter Id Number" size="100" maxlength="10" value=<?php echo "\"".$quoteId."\"";?> required/>
-            </td>
-          </tr>
-          <tr> 
             <th>Secret Notes:</th>
             <td>
               <input type="text" name="Notes" placeholder="Enter Notes" size="100" maxlength="1000" value=<?php echo "\"".$sNote."\"";?> required/>
@@ -73,7 +50,6 @@
           <tr>
             <th>Save Changes:</th>
             <td>
-              <?php if(isset($_POST['Add'])){echo "<input type=\"hidden\" name=\"Add\" value=\"Add\"/>";}?>
               <input type="submit" class="mybutton" value="Update Database"/>
             </td>
           </tr>
