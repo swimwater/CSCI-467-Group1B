@@ -35,6 +35,9 @@
                     <a class="nav-link" href="customer.php">Customer</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="quote-form.php">Add Quote</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="manageUnfinalQuotesHeader.php">View Unfinalized Quotes</a>
                 </li>
                 <li class="nav-item">
