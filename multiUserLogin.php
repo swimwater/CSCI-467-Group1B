@@ -31,7 +31,7 @@
                 else if ($rows['User_Id'] == $id && $rows['Password'] == $pswd && $rows['Pos'] == 2) {
                     $_SESSION["user_id"] = $_POST["user_id"];
                     $_SESSION['pos'] = 2;
-                    header("Location: views.php");
+                    header("Location: home.php");
                 }
                 else {
                     $msg2 = '<div style="text-align: center">USERNAME OR PASSWORD INCORRECT.</div>';

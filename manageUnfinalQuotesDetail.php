@@ -1,5 +1,14 @@
 <!--- edit a specific unfinalized quote --->
 
+<?php
+    require("session.php");
+    require("secrets.php");
+	if(!isset($_POST["quoteID"]))
+	{
+	  header('Location:manageUnfinalQuotesHeader.php');
+	}
+?>
+
 <html>
 	<head> 
 		<!--include bootstrap CSS via CDN and custom stylesheet --->
@@ -14,6 +23,8 @@
 	<body>
 
 	<div class="container-fluid">
+
+		<?php require "navbar.php" ?>
 
 		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Finalize</h1>	
 
@@ -33,12 +44,6 @@
 
 			<?php
 			try{
-				// connect to the database
-				include("credentials.php");
-				$dsn = "mysql:host=courses;dbname=z1866716";
-				$pdo = new PDO($dsn,$username,$password);
-				$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-				
 				// get all line items pertaining to the selected quote
 				$query = $pdo->prepare("SELECT * FROM Quote_Descript WHERE Quote_Id=:selectedQuoteID"); 
 				$query->execute(array(":selectedQuoteID" => $_POST["quoteID"]));
