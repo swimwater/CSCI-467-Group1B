@@ -241,6 +241,8 @@ function removeLineItem(itemID) {
 
 	$("#" + itemID).css("display", "none"); // hide the line item to the user
 
+	$("#price" + itemID).remove(); //delete its price field
+
 	//As we have removed the newest line item, clear the reference to the newest line item.
 	newestLineItemID = undefined;
 
