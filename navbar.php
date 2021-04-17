@@ -12,7 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <title>Dropdown Navigation Bar</title>
+    <!--Dropdown Menu Styles-->
+    <style>
 
+        .dropdown-menu a:hover {
+            background: linear-gradient(to right, #abbaab, #ffffff);
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
   </head>
 
   <body>
