@@ -61,7 +61,7 @@
 
 					// create the form controls for each column in the grid row
 					$descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description'.$n.'" name="description'.$n.'" value="'.$lineItem["Descript"].'"/>';
-					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'" onchange="calculateTotal()"/>';
+					$priceField = '<input type="number" class="form-control  text-light bg-dark w-100" min="0" step="0.01" id="price'.$n.'" name="price'.$n.'" value="'.$lineItem["Price"].'" onchange="calculateTotal()"/>';
 					$removeButton = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem('.$n.')">Remove</button>';
 
 					// add a hidden field containing the database line item id. This will later be used to determine if the row is currently in the database when we go to save changes
@@ -146,7 +146,7 @@ function addLineItem() {
 
 	// create line item fields, and removal button:
 	var descriptionTextField = '<input type="text" class="form-control text-light bg-dark w-100" id="description' + numLineItems + '" name="description' + numLineItems + '" placeholder="Enter line item description"/>';
-	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" onchange="calculateTotal()" placeholder="0.00"/>';
+	var priceField = '<input type="number" class="form-control text-light bg-dark w-100" min="0" step="0.01" id="price' + numLineItems + '" name="price' + numLineItems + '" onchange="calculateTotal()" placeholder="0.00"/>';
 	var removeButtonHTML = '<button type="button" class="btn btn-danger w-100" onclick="removeLineItem(' + numLineItems + ')">Remove</button>';
 
 	// combine fields into new line item table row.
@@ -176,6 +176,8 @@ function removeLineItem(itemID) {
 	$("#deleted" + itemID).val("true"); // set deleted status to true
 
 	$("#" + itemID).css("display", "none"); // hide the line item to the user
+	
+	$("#price" + itemID).remove(); //delete its price field
 
 	//As we have removed the newest line item, clear the reference to the newest line item.
 	newestLineItemID = undefined;
