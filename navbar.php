@@ -87,11 +87,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="transferQuote.php">Transfer Quotes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="record.php">Associate Portal</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">Associate Portal</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="record.php">Home</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="customer.php">Customer</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="quote-form.php">Add Quote</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="manageUnfinalQuotesHeader.php">View Unfinalized Quotes</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="viewSanctionQuotes.php">HQ Portal</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">HQ Portal</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="viewSanctionQuotes.php">Home</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="manageFinalQuotesHeader.php">View Finalized Quotes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="viewSanctionQuotes.php">View Sanctioned Quotes</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Logout</a>
