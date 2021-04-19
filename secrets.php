@@ -1,8 +1,8 @@
 <?php
-	$MYusername = "z1821488";
-	$MYpassword = "1999Jan03";
+	$MYusername = "z1860966";
+	$MYpassword = "2001Jun27";
 	$server = "courses";
-	$dbName = "z1821488";
+	$dbName = "z1860966";
 	try
     {
         $dsn = "mysql:host=$server;dbname=$dbName"; 		// creating dsn and pdo

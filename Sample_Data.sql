@@ -23,15 +23,15 @@ insert into Associate (Name, Password, Accu_Com, Address, Pos)
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (2, 1, "This person's email got me a free water bottle", "Finalized", '20210216');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (1, 2, "Ryan's secret notes for his first quote", "Sanctioned", '20210304');
+  values (1, 2, "Ryan's secret notes for his first quote", "Finalized", '20210304');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (6, 3, "McDonalds is aiiight", "Sanctioned", '20210304');
+  values (6, 3, "McDonalds is aiiight", "Finalized", '20210304');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (5, 4, "Burger king has decent burgers", "Finalized", '20210306');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (4, 5, "I hardly go to wendys. Not sure why", "Sanctioned", '20210224');
+  values (4, 5, "I hardly go to wendys. Not sure why", "Finalized", '20210224');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (10, 6, "Mmmm smoky adobo", "Sanctioned", '20210305');
+  values (10, 6, "Mmmm smoky adobo", "Finalized", '20210305');
 insert into Quote (User_Id, Cust_Id, SNote)
   values (9, 7, "Test for displaying unfinalized quotes");
 insert into Quote (User_Id, Cust_Id, SNote)
