@@ -29,9 +29,9 @@ insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
   values (5, 4, "Burger king has decent burgers", "Finalized", '20210306');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (4, 5, "I hardly go to wendys. Not sure why", "Finalized", '20210224');
+  values (2, 5, "I hardly go to wendys. Not sure why", "Finalized", '20210224');
 insert into Quote (User_Id, Cust_Id, SNote, Status, Date)
-  values (10, 6, "Mmmm smoky adobo", "Finalized", '20210305');
+  values (2, 6, "Mmmm smoky adobo", "Finalized", '20210305');
 insert into Quote (User_Id, Cust_Id, SNote)
   values (9, 7, "Test for displaying unfinalized quotes");
 insert into Quote (User_Id, Cust_Id, SNote)
@@ -39,7 +39,7 @@ insert into Quote (User_Id, Cust_Id, SNote)
 insert into Quote (User_Id, Cust_Id, SNote)
   values (7, 9, "Best person I've ever met");
 insert into Quote (User_Id, Cust_Id, SNote)
-  values (8, 10, "Always seems to squash bugs in code");
+  values (2, 10, "Always seems to squash bugs in code");
 insert into Quote (User_Id, Cust_Id, SNote)
   values (3, 11, "His middle name is entertainment");
 insert into Quote (User_Id, Cust_Id, SNote)
@@ -49,11 +49,11 @@ insert into Quote (User_Id, Cust_Id, SNote)
 insert into Quote (User_Id, Cust_Id, SNote)
   values (7, 14, "Cheap and delicious, I eat this more than I should");
 insert into Quote (User_Id, Cust_Id, SNote)
-  values (4, 15, "Can't beat the price");
+  values (2, 15, "Can't beat the price");
 insert into Quote (User_Id, Cust_Id, SNote)
   values (1, 16, "Taste the best after swimming");
 insert into Quote (User_Id, Cust_Id, SNote)
-  values (10, 17, "So expensive, but so worth it");
+  values (2, 17, "So expensive, but so worth it");
 insert into Quote (User_Id, Cust_Id, SNote)
   values (9, 18, "So much better than regular potato chips");
 
