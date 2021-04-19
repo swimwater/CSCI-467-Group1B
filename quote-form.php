@@ -38,13 +38,13 @@
           <tr align:left;>
             <th>Customer Id:</th>
             <td>
-                <input type="text" name="Cust Id" placeholder="Enter Id Number" size="100" maxlength="10" value=<?php echo "\"".$custId."\"";?> required/>
+                <input type="number" class="w-100" min="0" max="161" name="Cust Id" placeholder="Enter Id Number" size="100" value=<?php echo "\"".$custId."\"";?> required/>
             </td>
           </tr>
           <tr>
             <th>Secret Notes:</th>
             <td>
-              <input type="text" name="Notes" placeholder="Enter Notes" size="100" maxlength="1000" value=<?php echo "\"".$sNote."\"";?> required/>
+              <input type="text" name="Notes" placeholder="Enter Notes" size="100" maxlength="1000" value=<?php echo "\"".$sNote."\"";?>/>
             </td>
           </tr>
           <tr>
