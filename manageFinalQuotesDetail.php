@@ -22,9 +22,9 @@
 
 	<body>
 
-	<div class="container-fluid">
+	<?php require "navbar.php" ?>
 
-		<?php require "navbar.php" ?>
+	<div class="container-fluid">
 
 		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Sanction</h1>
 

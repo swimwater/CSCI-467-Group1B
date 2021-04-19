@@ -18,9 +18,11 @@
 	</head>
 
 	<body>
+	
+	<?php require "navbar.php" ?>
 
 	<div class="container-fluid">
-		<?php require "navbar.php" ?>
+		
 
 		<h1 class="pt-2">Unfinalized Quotes</h1>
 
