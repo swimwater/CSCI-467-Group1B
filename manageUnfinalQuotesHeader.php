@@ -37,6 +37,7 @@
 				<th style="width: 15rem">Customer Contact</th>
 				<th style="width: 40rem">Notes</th>
 				<th style="width: 8rem">Edit</th>
+				<th style="width: 8rem">Delete</th>
 			</tr>
 
 			<!--- connect to db and get unfinalized quotes pertaining to this associate, put them into a table-->
@@ -72,10 +73,14 @@
 						// the button that will submit the form to the page where the user will edit the quote in detail.
 						$editButton = '<td><button type="submit" class="btn btn-success w-100">Edit</button></td>';
 
-						// print the table row with the quote button and information:
-						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</tr>';
+						$deleteButton = '<td><form id="delete" action=deleteQuoteUpdateDB.php method="POST">
+											<input type="hidden" name="quoteId" value = "'.$quote["Quote_Id"].'"/>
+											<input type="submit" class="btn btn-danger w-100" value="Delete"/>
+										</form></td>';
+						
 
-						echo "</form>";
+						// print the table row with the quote button and information:
+						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</form>'.$deleteButton.'</tr>';
 					}
 
 				}
