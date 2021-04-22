@@ -1,20 +1,17 @@
-*
+.display
 {
-    margin:0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
+    display: grid;
+    place-items: center;
 }
 body                                /* BACKGROUND OF SCREEN */
 {
     height: 50vh;                   
-    display: grid;
-    place-items: center;
     background: #34495e;
 }
 table                               /* TABLE IN GENERAL      */
 {
     width: 900px;
+    place-items: center;
 
 }
 table, td, th                       /*  GENERIC TABLE, DATA CELL AND HEAD INFO      */
