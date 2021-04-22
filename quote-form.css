@@ -1,14 +1,10 @@
-* {
-    margin:0;
-    padding: 0;
-    font-family: sans-serif;
-    box-sizing: border-box;
-}
-
-body {
-    height: 50vh;
+.display
+{
     display: grid;
     place-items: center;
+}
+body {
+    height: 50vh;
     background: #34495e;
 }
 
