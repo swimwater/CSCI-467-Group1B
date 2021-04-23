@@ -2,7 +2,13 @@
     require_once("session.php");
     require_once("secrets.php");
 ?>
-
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch();
+  if ($pOs['Pos'] == 0) {header("Location: record.php");}
+  if ($pOs['Pos'] == 1) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +31,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <div class="display">
       <h1>TRANSFER QUOTE RECORDS TO OTHER ASSOCIATES</h1>
-    
+
 
       <br>
 
