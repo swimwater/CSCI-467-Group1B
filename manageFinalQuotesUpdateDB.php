@@ -6,8 +6,8 @@
 <?php
   $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
   $rEsUlT = $pdo->query($poSiTion);
-  $pOs = $rEsUlT->fetch());
-  if (isset($pOs['Pos'] == 0)) {header("Location: record.php");}
+  $pOs = $rEsUlT->fetch();
+  if ($pOs['Pos'] == 0) {header("Location: record.php");}
  ?>
 <html>
 

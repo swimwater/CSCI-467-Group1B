@@ -5,8 +5,8 @@
   require("session.php");
   $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
   $rEsUlT = $pdo->query($poSiTion);
-  $pOs = $rEsUlT->fetch());
-  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+  $pOs = $rEsUlT->fetch();
+  if ($pOs['Pos'] == 1) {header("Location: manageFinalQuotesHeader.php");}
  ?>
         <head>
           <!--include bootstrap CSS via CDN and custom stylesheet --->
