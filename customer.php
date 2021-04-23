@@ -4,7 +4,12 @@
     require_once("secrets.php");
     require_once("functions.php");
 ?>
-
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch());
+  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 <!doctype html>
 
 <html lang="en">

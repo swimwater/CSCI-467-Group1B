@@ -3,7 +3,12 @@
     require("session.php");
     require("secrets.php");
 ?>
-
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch());
+  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 <html>
 
     <head>

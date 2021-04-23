@@ -5,6 +5,12 @@
     require("secrets.php");
     require("legacyDatabase.php");
 ?>
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch());
+  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 
 <html>
 	<head>
@@ -18,11 +24,11 @@
 	</head>
 
 	<body>
-	
+
 	<?php require "navbar.php" ?>
 
 	<div class="container-fluid">
-		
+
 
 		<h1 class="pt-2">Unfinalized Quotes</h1>
 
@@ -77,7 +83,7 @@
 											<input type="hidden" name="quoteId" value = "'.$quote["Quote_Id"].'"/>
 											<input type="submit" class="btn btn-danger w-100" value="Delete"/>
 										</form></td>';
-						
+
 
 						// print the table row with the quote button and information:
 						echo '<tr><td>'.$customerData["name"].'</td><td>'.$customerData["contact"].'</td><td>'.$quote["SNote"].'</td>'.$editButton.'</form>'.$deleteButton.'</tr>';

@@ -2,7 +2,13 @@
     require_once("session.php");
     require_once("secrets.php");
 ?>
-
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch());
+  if (isset($pOs['Pos'] == 0)) {header("Location: record.php");}
+  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,7 +127,7 @@
         <?php endif;?>
       </table>
     </div>
-
+<div class="display">
 <form action="views.php" method = "POST">
   <?php if (isset($_POST['final'])):?>
     <input type="hidden" name="final" value=<?php echo "\"".$_POST['final']."\"";?>/> <?php endif;?>
@@ -138,4 +144,5 @@
   <?php if (isset($_POST['sCust'])):?>
     <input type="hidden" name="sCust" value=<?php echo "\"".$_POST['sCust']."\"";?>/> <?php endif;?>
   <input type="submit" value="Back"/>
+</div>
 </form>

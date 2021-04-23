@@ -8,6 +8,12 @@
 	  header('Location:manageUnfinalQuotesHeader.php');
 	}
 ?>
+<?php
+  $poSiTion = "select Pos from Associate where User_Id = ".$_SESSION["user_id"].";";
+  $rEsUlT = $pdo->query($poSiTion);
+  $pOs = $rEsUlT->fetch());
+  if (isset($pOs['Pos'] == 1)) {header("Location: manageFinalQuotesHeader.php");}
+ ?>
 
 <html>
 	<head>
@@ -26,7 +32,7 @@
 
 	<div class="container-fluid">
 
-		
+
 
 		<h1 class="pt-2">Quote <?php echo $_POST["quoteID"]?> - Edit Details and Finalize</h1>
 
@@ -178,7 +184,7 @@ function removeLineItem(itemID) {
 	$("#deleted" + itemID).val("true"); // set deleted status to true
 
 	$("#" + itemID).css("display", "none"); // hide the line item to the user
-	
+
 	$("#price" + itemID).remove(); //delete its price field
 
 	//As we have removed the newest line item, clear the reference to the newest line item.
